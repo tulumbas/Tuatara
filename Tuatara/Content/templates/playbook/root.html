@@ -1,0 +1,25 @@
+﻿<div class="row">
+    <div class="col-md-2">Current week is {{ v.currentWeek.baseDateText }}</div>
+</div>
+
+<div class="row">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="col-md-3">Project</th>
+                <th class="col-md-3">Task</th>
+                <th class="col-md-1">Prio</th>
+                <th class="col-md-1">Status</th>
+                <th class="col-md-1">Start</th>
+                <th class="col-md-4">Resources</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-show="!v.rows.length">
+                <td colspan="6" class="table-no-data">No data so far</td>
+            </tr>
+            <tr playbook-row pb-row-source="rowSource" ng-repeat="rowSource in v.rows">
+            </tr>
+        </tbody>
+    </table>
+</div>
