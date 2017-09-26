@@ -1,10 +1,11 @@
-using System;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
-using Tuatara.Models.Services;
-using Tuatara.Data.Repositories;
-using Tuatara.Data.DB;
+using System;
 using System.Web.Configuration;
+using Tuatara.Data;
+using Tuatara.Data.DB;
+using Tuatara.Data.Repositories;
+using Tuatara.Data.Services;
 
 namespace Tuatara.App_Start
 {
@@ -48,7 +49,6 @@ namespace Tuatara.App_Start
             // services
             container.RegisterType<AssignmentService>();
             container.RegisterType<CalendarService>();
-            container.RegisterType<PlaybookService>();
             container.RegisterType<ProjectClientService>();
             container.RegisterType<ResourceService>();
             container.RegisterType<UserService>();

@@ -164,9 +164,9 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\templates\requests\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\AutomapperConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -213,19 +213,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AssignmentDto.cs" />
-    <Compile Include="Models\CalendarItemDto.cs" />
-    <Compile Include="Models\PlaybookRowDto.cs" />
-    <Compile Include="Models\PlaybookDto.cs" />
-    <Compile Include="Models\ProjectDto.cs" />
-    <Compile Include="Models\ResourceDto.cs" />
-    <Compile Include="Models\Services\AssignmentService.cs" />
-    <Compile Include="Models\Services\BaseService.cs" />
-    <Compile Include="Models\Services\CalendarService.cs" />
-    <Compile Include="Models\Services\PlaybookService.cs" />
-    <Compile Include="Models\Services\ProjectClientService.cs" />
-    <Compile Include="Models\Services\ResourceService.cs" />
-    <Compile Include="Models\Services\UserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -240,7 +227,9 @@
     <Content Include="Content\bootstrap-3.3.7-dist\js\bootstrap.min.js" />
     <Content Include="Content\bootstrap-3.3.7-dist\js\npm.js" />
     <Content Include="Content\templates\playbook\root.html" />
+    <Content Include="Content\templates\playbook\roweditor.html" />
     <Content Include="Content\templates\playbook\row.html" />
+    <Content Include="Content\ui-bootstrap-csp.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -263,11 +252,19 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <Content Include="ideas.html" />
-    <Content Include="Scripts\angular-route.min.js" />
+    <Content Include="Scripts\angular-mocks.js" />
+    <Content Include="Scripts\angular-resource.js" />
+    <Content Include="Scripts\angular-resource.min.js" />
     <Content Include="Scripts\angular-ui-router.min.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.min.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap.min.js" />
+    <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\controllers\home.js" />
     <Content Include="Scripts\controllers\playbook-row.js" />
+    <Content Include="Scripts\controllers\playbook-roweditor.js" />
     <Content Include="Scripts\controllers\playbook.js" />
     <Content Include="Scripts\controllers\requests\requests.js" />
     <Content Include="Scripts\factories\calendar-service.js" />
@@ -300,12 +297,10 @@
     <Content Include="Content\bootstrap-3.3.7-dist\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\bootstrap-3.3.7-dist\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Project_Readme.html" />
-    <Content Include="Scripts\angular-route.min.js.map" />
-    <Content Include="Views\Playbook\Index.cshtml" />
-    <Content Include="Views\Playbook\Root.cshtml" />
-    <Content Include="Views\Playbook\Row.cshtml" />
     <Content Include="Views\Home\Playbook.cshtml" />
     <Content Include="Views\Home\Requests.cshtml" />
+    <Content Include="Scripts\angular.min.js.map" />
+    <Content Include="Scripts\angular-resource.min.js.map" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tuatara.Data\Tuatara.Data.csproj">

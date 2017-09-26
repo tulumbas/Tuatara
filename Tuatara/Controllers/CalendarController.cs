@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using System.Web.Http;
-using Tuatara.Models;
-using Tuatara.Models.Services;
+using Tuatara.Data.Dto;
+using Tuatara.Data.Services;
 
 namespace Tuatara.Controllers
 {

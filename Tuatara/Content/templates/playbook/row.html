@@ -1,10 +1,12 @@
-﻿<!-- id: {{rowSource.id}}/{{ $index }}-->
-
-<tr>
-    <td>{{ rowSource.project}}</td>
-    <td>{{ rowSource.description }}</td>
-    <td>{{ rowSource.priority }}</td>
-    <td>{{ rowSource.status }}</td>
-    <td>{{ rowSource.intraweek }}</td>
-    <td>{{ rowSource.resource }}</td>
-</tr>
+﻿<td>
+    <!-- id: {{ $index }} -->
+    <input type="checkbox" name="sel" value="{{rowData.id}}" ng-model="r.selected" />
+    <a class="edit-icon hidden-sm hidden-xs" ng-click="r.openRowEditor();"><span class="glyphicon glyphicon-pencil"></span></a>
+    {{ rowData.project}} 
+</td>
+<td>{{ rowData.description }}</td>
+<td class="col-priority center">{{ rowData.priorityName }}</td>
+<td class="center">{{ rowData.statusName }}</td>
+<td class="center">{{ rowData.intraweekName }}</td>
+<td class="center">{{ rowData.resource }}</td>
+<td class="center">{{ rowData.duration }}</td>

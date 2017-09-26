@@ -22,7 +22,6 @@ namespace Tuatara.Data
 
     public enum Intraweeks
     {
-        Any,
         Mon,
         Tue,
         Start,
@@ -30,7 +29,8 @@ namespace Tuatara.Data
         Mid,
         Thur,
         Fri,
-        End
+        End,
+        Any
     };
 
     [Flags]

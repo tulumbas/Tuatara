@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tuatara.Data", "Tuatara.Dat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tuatara.Data.Xml", "Tuatara.Data.Xml\Tuatara.Data.Xml.csproj", "{9FCD962B-DEF5-47B7-8790-4048819D215B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "TestApp\TestApp.csproj", "{6D393868-16D0-473C-B64A-08378CEF0315}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tuatara.Playground", "Tuatara.Playground\Tuatara.Playground.csproj", "{6D393868-16D0-473C-B64A-08378CEF0315}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

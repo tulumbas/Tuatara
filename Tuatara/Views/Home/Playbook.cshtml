@@ -1,7 +1,38 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var setupObject = ViewBag.jsObject;
 }
 
 <playbook>
 
 </playbook>
+
+<hr />
+<footer>
+    This is footer
+</footer>
+
+
+@section menu {
+<ul class="nav navbar-nav">
+    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
+    <li><a href="~/home/requests">Requests</a></li>
+    <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
+</ul>
+}
+
+@section scripts {
+@*@Scripts.Render("~/bundles/tuatara")*@
+    <script src="~/Scripts/lib.js"></script>
+    <script src="~/Scripts/factories/enums-factory.js"></script>
+    <script src="~/Scripts/factories/playbook-service.js"></script>
+    <script src="~/Scripts/controllers/playbook.js"></script>
+    <script src="~/Scripts/controllers/playbook-row.js"></script>
+    <script src="~/Scripts/controllers/playbook-roweditor.js"></script>
+    <script src="~/Scripts/controllers/requests/requests.js"></script>
+    <script src="~/Scripts/Tuatara.js"></script>
+    <script>
+        var obj = @Html.Raw(Json.Encode(ViewBag.jsObject));
+        var defaultWeekShift = @Html.Raw(ViewBag.weekShift);
+    </script>
+}

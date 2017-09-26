@@ -4,8 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Tuatara.Models;
-using Tuatara.Models.Services;
+using Tuatara.Data.Dto;
+using Tuatara.Data.Services;
 
 namespace Tuatara.Controllers
 {
@@ -15,16 +15,16 @@ namespace Tuatara.Controllers
     /// </summary>
     public class PlaybookController : ApiController
     {
-        PlaybookService _playbookService;
+        AssignmentService _assignementService;
 
-        public PlaybookController(PlaybookService playbookService)
+        public PlaybookController(AssignmentService assignementService)
         {
-            _playbookService = playbookService;
+            _assignementService = assignementService;
         }
                  
         public PlaybookDto Get(int weekShift)
         {
-            return _playbookService.GetPlaybookForWeekShift(weekShift);
+            return _assignementService.GetPlaybookForWeekShift(weekShift);
         }
     }
 }

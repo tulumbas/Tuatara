@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Tuatara.Data.Models;
-using Tuatara.Models.Services;
+using Tuatara.Data.Services;
 
 namespace Tuatara.Controllers
 {

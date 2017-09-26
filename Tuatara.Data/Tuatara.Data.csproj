@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -53,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutomapperConfig.cs" />
     <Compile Include="DB\AssignmentRepository.cs" />
     <Compile Include="DB\CalendarItemRepository.cs" />
     <Compile Include="DB\EFRepositoryBase.cs" />
@@ -60,6 +65,12 @@
     <Compile Include="DB\UserRepository.cs" />
     <Compile Include="DB\ResourceRepository.cs" />
     <Compile Include="DB\TuataraContext.cs" />
+    <Compile Include="Dto\AssignmentDto.cs" />
+    <Compile Include="Dto\CalendarItemDto.cs" />
+    <Compile Include="Dto\PlaybookDto.cs" />
+    <Compile Include="Dto\PlaybookRowDto.cs" />
+    <Compile Include="Dto\ProjectDto.cs" />
+    <Compile Include="Dto\ResourceDto.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Migrations\201702140240439_InitialCreate.cs" />
     <Compile Include="Migrations\201702140240439_InitialCreate.Designer.cs">
@@ -82,6 +93,12 @@
     <Compile Include="Models\Work.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ModelRepositories.cs" />
+    <Compile Include="Services\AssignmentService.cs" />
+    <Compile Include="Services\BaseService.cs" />
+    <Compile Include="Services\CalendarService.cs" />
+    <Compile Include="Services\ProjectClientService.cs" />
+    <Compile Include="Services\ResourceService.cs" />
+    <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

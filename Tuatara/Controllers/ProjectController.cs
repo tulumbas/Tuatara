@@ -2,27 +2,36 @@
 using System.Linq;
 using System.Web.Http;
 using AutoMapper;
-using Tuatara.Models;
-using Tuatara.Models.Services;
+using Tuatara.Data.Services;
+using Tuatara.Data.Dto;
 
 namespace Tuatara.Controllers
 {
     public class ProjectController : ApiController
     {
-        IMapper _mapper;
         ProjectClientService _service;
 
-        public ProjectController(IMapper autoMapper, ProjectClientService service)
+        public ProjectController(ProjectClientService service)
         {
-            _mapper = autoMapper;
             _service = service;
         }
 
-        public IEnumerable<ProjectDto> Get()
+        [HttpGet]
+        public IEnumerable<ProjectDto> Get(int id = 0)
         {
             var data = _service.GetAllProjects();
-            var result = data.Select(x => _mapper.Map<ProjectDto>(x)).ToList();
+            if(id != 0)
+            {
+                data = data.Where(p => p.ID == id);
+            }
+            var result = data.ToList();
             return result;
+        }
+
+        [HttpGet]
+        public IEnumerable<ProjectDto> FindByName(string name)
+        {
+            return _service.FindProjects(name);
         }
 
         protected override void Dispose(bool disposing)

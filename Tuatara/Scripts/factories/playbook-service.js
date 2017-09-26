@@ -14,30 +14,58 @@
 (function () {
     var Tuatara = (window.Tuatara || (window.Tuatara = {}));
 
-    Tuatara.playbookWeek = function (jsonData) {
-        this.id = jsonData.id;
-        if (jsonData.id) {
-            var dt = jsonData.id.toString();
-            this.baseDate = new Date(dt.slice(0, 4), dt.slice(4, 6) - 1, dt.slice(6, 8));
-            this.baseDateText = this.baseDate.toLocaleDateString();
-        } else {
-            this.baseDate = null;
-        }
-        this.weekNo = jsonData.WeekNo;
-    }
+    Tuatara.playbookService = function ($http, $log, $uibModal) {
+        this.getProjects = getProjects;
+        this.getWeekFromCurrent = getWeekFromCurrent;
+        this.getPlaybookForWeek = getPlaybookForWeek;
+        this.openRowEditor = openRowEditor;
+        this.saveChanges = saveChanges;
 
-    Tuatara.playbookService = function ($http) {
-        this.getWeekFromCurrent = function (weekShift) {
+        function getWeekFromCurrent(weekShift) {
             var request = $http.get('/api/calendar/getweek?shift=' + weekShift.toString());
             var pipelined = request.then(function (payload) {
-                return new Tuatara.playbookWeek(payload.data);
+                return new Tuatara.PlaybookWeek(payload.data);
             });
             return pipelined;
         }
 
-        this.getPlaybookForWeek = function (weekShift) {
-            return $http.get('/api/playbook/get?weekShift=' + weekShift.toString());
+        function getPlaybookForWeek(weekShift) {
+            return $http
+                .get('/api/playbook/get?weekShift=' + weekShift.toString())
+                .then(function (payload) {
+                    return new Tuatara.Playbook(payload.data);
+                })
+            ;
         }
+
+        function openRowEditor(rowData) {
+            var editor = $uibModal.open({
+                animation: false,
+                component: 'playbookRowEditor',
+                resolve: { rowData: rowData }
+            });
+
+            editor.result.then(function (status) {
+                $log.debug('row editor status ' + status);
+            }, function () {
+                $log.info('modal-component dismissed at: ' + new Date());
+            });
+        }
+
+        function saveChanges(rowDto) {
+            
+        }
+
+        function getProjects(search) {
+            return $http.get('/api/project/findByName?name=' + search)
+                .then(function(payload){
+                    return payload.data;
+                }, function(e){
+                    $log.error(e);
+                });
+            
+        }
+
     }
 
 })();

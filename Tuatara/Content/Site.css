@@ -15,3 +15,26 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/* sorted columns designators */
+.sorted:after { content: '\25b2'; }
+.sorted.za:after {  content: '\25bc'; }
+
+.center {vertical-align: middle; text-align: center; }
+table.playbook-table > tbody > tr > td { 
+    padding: 3px;
+    border-top-color: #999;
+}
+table.playbook-table > tbody > tr.highlighted-row { border: 2px solid #009900; }
+
+.edit-icon { text-decoration: none; color:inherit; margin-right: 0.8em; cursor: pointer;}
+
+/* playbook highlights */
+.prio-1 { background-color: rgba(255, 0, 255, 0.16); }
+.prio-1 td.col-priority { background-color: fuchsia; }
+.prio-2 td { background-color: #fcf8e3; } /*rgb(240, 250, 188);*/ 
+.prio-2  td.col-priority { background-color: yellow; }
+.prio-3 { background-color: #f2dede; }
+.prio-3 td.col-priority { background-color: rgba(245, 0, 0, 0.22); }
+.prio-4 { background-color:#d9edf7; }
+.prio-4 td.col-priority { background-color:  rgba(151, 151, 249, 0.44); }

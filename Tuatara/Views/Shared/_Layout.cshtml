@@ -19,30 +19,13 @@
                 @Html.ActionLink("Tuatara", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                    <li><a href="~/home/requests">Requests</a></li>
-                    <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
-                </ul>
+                @RenderSection("menu")
             </div>
         </div>
     </div>
     <div class="container-fluid body-content">
         @RenderBody()
-        <hr />
-        <footer>
-        </footer>
     </div>
-
-    @*@Scripts.Render("~/bundles/tuatara")*@
-
-    <script src="~/Scripts/lib.js"></script>
-    <script src="~/Scripts/factories/enums-factory.js"></script>
-    <script src="~/Scripts/factories/playbook-service.js"></script>
-    <script src="~/Scripts/controllers/playbook.js"></script>
-    <script src="~/Scripts/controllers/playbook-row.js"></script>
-    <script src="~/Scripts/controllers/requests/requests.js"></script>
-    <script src="~/Scripts/Tuatara.js"></script>
 
     @RenderSection("scripts", required: false)
 </body>
