@@ -1,23 +1,22 @@
 ﻿(function () {
     var Tuatara = (window.Tuatara || (window.Tuatara = {}));
 
-    Tuatara.playbookRowEditorController = function (playbookService, $log) {
+    Tuatara.playbookRowEditorController = function (playbookService, $log, $scope) {
         var _this = this;
-        this.data = null;
-        this.isNew = true;
-        this.ok = saveData;
-        this.cancel = cancel;
-        this.getProjects = getProjects;
-
+        $scope.isNew = true;
+        $scope.ok = saveData;
+        $scope.cancel = cancel;
+        $scope.getProjects = getProjects;
 
         this.$onInit = function () {
             var sourceData = _this.resolve.rowData;
-            _this.isNew = (sourceData === null || isNaN(sourceData.id) || sourceData.id === 0);
-            _this.data = new Tuatara.PlaybookWeekRow(sourceData);
+            $scope.isNew = (sourceData === null || isNaN(sourceData.id) || sourceData.id === 0);
+            $scope.id = sourceData.id;            
+            $scope.data = new Tuatara.PlaybookWeekRow(sourceData);
         }
 
         function saveData() {
-            _this.data.description = _this.description; // copy to initial data
+            $scope.data.description = _this.description; // copy to initial data
             var promise = playbookService.saveChanges(data);
 
             promise.then(function () {

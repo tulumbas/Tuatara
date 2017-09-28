@@ -8,61 +8,46 @@
 
     <div class="playbook-caption">Current week is {{ v.currentWeek.baseDateText }}</div>
 
-</div>
-<div class="row">    
-    <table class="playbook-table table">
-        <!--<colgroup>
-            <col class="col-selector"/>
-            <col class="col-project" />
-            <col class="col-description" />
-            <col class="col-priority center" />
-            <col class="col-status center" />
-            <col class="col-intraweek center" />
-            <col class="col-resource center" />
-            <col class="col-duration center" />
-        </colgroup>-->
-        <thead>            
-            <tr>
-                <th class="col-md-2 center"  
-                    ng-class="v.sortIndicator('project')"
-                    ng-click="v.sortBy('project')">Project</th>
+    </div>
+    <div class="row">
+        <table class="playbook-table table">
+            <thead>
+                <tr>
+                    <th class="col-md-2 center"
+                        ng-class="v.sortIndicator('project')"
+                        ng-click="v.sortBy('project')">Project</th>
 
-                <th class="col-md-5" 
-                    ng-class="v.sortIndicator('description')"
-                    ng-click="v.sortBy('description')">Task</th>
+                    <th class="col-md-5"
+                        ng-class="v.sortIndicator('description')"
+                        ng-click="v.sortBy('description')">Task</th>
 
-                <th class="col-md-1 center" 
-                    ng-class="v.sortIndicator('priority')"
-                    ng-click="v.sortBy('priority')">Prio</th>
+                    <th class="col-md-1 center"
+                        ng-class="v.sortIndicator('priority')"
+                        ng-click="v.sortBy('priority')">Prio</th>
 
-                <th class="col-md-1 center" 
-                    ng-class="v.sortIndicator('status')"
-                    ng-click="v.sortBy('status')">Status</th>
+                    <th class="col-md-1 center"
+                        ng-class="v.sortIndicator('status')"
+                        ng-click="v.sortBy('status')">Status</th>
 
-                <th class="col-md-1 center" 
-                    ng-class="v.sortIndicator('intraweek')"
-                    ng-click="v.sortBy('intraweek')">When</th>
+                    <th class="col-md-1 center"
+                        ng-class="v.sortIndicator('intraweek')"
+                        ng-click="v.sortBy('intraweek')">When</th>
 
-                <th class="col-md-1 center" 
-                    ng-class="v.sortIndicator('resource')"
-                    ng-click="v.sortBy('resource')">Resources</th>
+                    <th class="col-md-1 center"
+                        ng-class="v.sortIndicator('resource')"
+                        ng-click="v.sortBy('resource')">Resources</th>
 
-                <th class="col-md-1 center" 
-                    ng-class="v.sortIndicator('duration')"
-                    ng-click="v.sortBy('duration')">Duration</th>                
-            </tr>
-        </thead>
-        <tbody>            
-            <tr ng-show="!v.rows.length"><td colspan="8" class="table-no-data">No data so far</td></tr>
-            <tr playbook-row 
-                ng-class="'prio-' + rowData.priority + (v.isCurrentRow(rowData) ? ' highlighted-row' : '')"
-                ng-click="v.setCurrentRow(rowData)"
-                ng-repeat="rowData in v.rows  | filter:searchString | orderBy:v.sortedBy:v.sortedZA as filteredResult track by rowData.id">
-            </tr>
-        </tbody>
-    </table>
-
-    <modal>
-
-    </modal>
-</div>
+                    <th class="col-md-1 center"
+                        ng-class="v.sortIndicator('duration')"
+                        ng-click="v.sortBy('duration')">Duration</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-show="!v.rows.length"><td colspan="8" class="table-no-data">No data so far</td></tr>
+                <tr playbook-row
+                    ng-class="'prio-' + rowData.priority + (v.isCurrentRow(rowData) ? ' highlighted-row' : '')"
+                    ng-click="v.setCurrentRow(rowData)"
+                    ng-repeat="rowData in v.rows  | filter:searchString | orderBy:v.sortedBy:v.sortedZA as filteredResult track by rowData.id"></tr>
+            </tbody>
+        </table>
+    </div>

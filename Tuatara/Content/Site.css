@@ -3,18 +3,21 @@
     padding-bottom: 20px;
 }
 
-/* Set padding to keep content from hitting the edges */
+/* Set padding to keep content from hitting the edges 
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+} */
+
+input[type=text].invalid-input {
+    color: red;
+    background: url(/content/img/error.png) no-repeat right 5px center;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+input[type=text].loading {
+    background: url(/content/img/spinner.gif) no-repeat right 5px center;
 }
+
 
 /* sorted columns designators */
 .sorted:after { content: '\25b2'; }
@@ -31,10 +34,10 @@ table.playbook-table > tbody > tr.highlighted-row { border: 2px solid #009900; }
 
 /* playbook highlights */
 .prio-1 { background-color: rgba(255, 0, 255, 0.16); }
-.prio-1 td.col-priority { background-color: fuchsia; }
-.prio-2 td { background-color: #fcf8e3; } /*rgb(240, 250, 188);*/ 
-.prio-2  td.col-priority { background-color: yellow; }
+.prio-1.active, .prio-1 td.col-priority  { background-color: fuchsia; }
+.prio-2 { background-color: #fcf8e3; } 
+.prio-2.active, .prio-2 td.col-priority  { background-color: yellow; }
 .prio-3 { background-color: #f2dede; }
-.prio-3 td.col-priority { background-color: rgba(245, 0, 0, 0.22); }
+.prio-3.active, .prio-3 td.col-priority { background-color: rgba(245, 0, 0, 0.4); }
 .prio-4 { background-color:#d9edf7; }
-.prio-4 td.col-priority { background-color:  rgba(151, 151, 249, 0.44); }
+.prio-4.active, .prio-4 td.col-priority  { background-color:  rgba(151, 151, 249, 0.44); }

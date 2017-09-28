@@ -85,6 +85,9 @@
       <DependentUpon>201702151152078_ConvertBaseDateToSerial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Intraweek.cs" />
+    <Compile Include="Models\PlaybookStatus.cs" />
+    <Compile Include="Models\Priority.cs" />
     <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Models\AssignableResource.cs" />
     <Compile Include="Models\Assignment.cs" />

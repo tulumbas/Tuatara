@@ -29,9 +29,9 @@ namespace Tuatara.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<ProjectDto> FindByName(string name)
+        public IEnumerable<string> FindByName(string name)
         {
-            return _service.FindProjects(name);
+            return _service.FindProjects(name).Select(x=>x.ProjectName);
         }
 
         protected override void Dispose(bool disposing)

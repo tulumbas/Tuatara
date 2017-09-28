@@ -226,6 +226,8 @@
     <Content Include="Content\bootstrap-3.3.7-dist\js\bootstrap.js" />
     <Content Include="Content\bootstrap-3.3.7-dist\js\bootstrap.min.js" />
     <Content Include="Content\bootstrap-3.3.7-dist\js\npm.js" />
+    <Content Include="Content\img\error.png" />
+    <Content Include="Content\img\spinner.gif" />
     <Content Include="Content\templates\playbook\root.html" />
     <Content Include="Content\templates\playbook\roweditor.html" />
     <Content Include="Content\templates\playbook\row.html" />

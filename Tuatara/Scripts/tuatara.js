@@ -14,7 +14,7 @@
         }
     })
     .component("playbookRowEditor", {
-        controller: ["playBookService", "$log", Tuatara.playbookRowEditorController],
+        controller: ["playBookService", "$log", "$scope", Tuatara.playbookRowEditorController],
         controllerAs: "editor",
         templateUrl: "/content/templates/playbook/roweditor.html",
         bindings: {

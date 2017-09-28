@@ -42,6 +42,7 @@
             var editor = $uibModal.open({
                 animation: false,
                 component: 'playbookRowEditor',
+                size: 'lg',
                 resolve: { rowData: rowData }
             });
 

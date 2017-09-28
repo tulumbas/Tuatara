@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Tuatara.Data;
 
 namespace Tuatara.Data.Models
 {
@@ -9,7 +8,11 @@ namespace Tuatara.Data.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
-        public Priorities Priority { get; set; }
+
+        public int PriorityID { get; set; }
+        public Priority Priority { get; set; }
+
+        public int PlaybookStatusID
         public Statuses Status { get; set; }
         public Intraweeks Intraweek { get; set; }
 
