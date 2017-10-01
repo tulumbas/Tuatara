@@ -52,6 +52,10 @@
       <HintPath>..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="CommonServiceLocator, Version=1.4.0.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.4.0\lib\net45\CommonServiceLocator.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -69,10 +73,6 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.Practices.Unity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
       <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
       <Private>True</Private>
@@ -162,8 +162,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Content\templates\requests\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
@@ -201,14 +199,10 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Controllers\AssignmentController.cs" />
-    <Compile Include="Controllers\CalendarController.cs" />
-    <Compile Include="Controllers\EnumsController.cs" />
     <Compile Include="Controllers\Mvc\HomeController.cs" />
     <Compile Include="Controllers\PlaybookController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\ResourceController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -228,9 +222,11 @@
     <Content Include="Content\bootstrap-3.3.7-dist\js\npm.js" />
     <Content Include="Content\img\error.png" />
     <Content Include="Content\img\spinner.gif" />
-    <Content Include="Content\templates\playbook\root.html" />
-    <Content Include="Content\templates\playbook\roweditor.html" />
-    <Content Include="Content\templates\playbook\row.html" />
+    <Content Include="Content\select.css" />
+    <Content Include="Content\select.min.css" />
+    <Content Include="App\playbook\root.html" />
+    <Content Include="App\playbook\row\roweditor.html" />
+    <Content Include="App\playbook\row\row.html" />
     <Content Include="Content\ui-bootstrap-csp.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -265,16 +261,18 @@
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\controllers\home.js" />
-    <Content Include="Scripts\controllers\playbook-row.js" />
-    <Content Include="Scripts\controllers\playbook-roweditor.js" />
-    <Content Include="Scripts\controllers\playbook.js" />
+    <Content Include="App\playbook\row\playbook-row.js" />
+    <Content Include="App\playbook\row\playbook-roweditor.js" />
+    <Content Include="App\playbook\playbook.js" />
     <Content Include="Scripts\controllers\requests\requests.js" />
     <Content Include="Scripts\factories\calendar-service.js" />
     <Content Include="Scripts\factories\enums-factory.js" />
-    <Content Include="Scripts\factories\playbook-service.js" />
+    <Content Include="App\services\playbook-service.js" />
     <Content Include="Scripts\factories\request-service.js" />
-    <Content Include="Scripts\lib.js" />
-    <Content Include="Scripts\tuatara.js" />
+    <Content Include="App\lib.js" />
+    <Content Include="Scripts\select.js" />
+    <Content Include="Scripts\select.min.js" />
+    <Content Include="App\tuatara.js" />
     <Content Include="Scripts\ui-bootstrap-tpls-2.5.0.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -298,16 +296,22 @@
     <Content Include="Content\bootstrap-3.3.7-dist\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\bootstrap-3.3.7-dist\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\bootstrap-3.3.7-dist\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\select.min.css.map" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Home\Playbook.cshtml" />
     <Content Include="Views\Home\Requests.cshtml" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\angular-resource.min.js.map" />
+    <Content Include="Scripts\select.min.js.map" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tuatara.Data\Tuatara.Data.csproj">
       <Project>{d4160e9e-8b88-4a93-9324-5270edb92441}</Project>
       <Name>Tuatara.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tuatara.Services\Tuatara.Services.csproj">
+      <Project>{bfbc0aec-974e-4cb5-91f3-b4963f4eeb02}</Project>
+      <Name>Tuatara.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

@@ -1,23 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Tuatara.Data;
 
 namespace Tuatara.Controllers.Mvc
 {
     public class HomeController : Controller
     {
-        static object _initsetup = new
-        {
-            priorities = GetEnumValues(typeof(Priorities)),
-            statuses = GetEnumValues(typeof(Priorities)),
-        };
+        //static object _initsetup = new
+        //{
+        //    priorities = GetEnumValues(typeof(Priorities)),
+        //    statuses = GetEnumValues(typeof(Priorities)),
+        //};
 
         public HomeController()
         {
-            ViewBag.jsObject = _initsetup;
+            ViewBag.jsObject = null; // _initsetup;
         }
 
         public ActionResult Index()
@@ -34,7 +31,6 @@ namespace Tuatara.Controllers.Mvc
         public ViewResult Playbook(int id = 0)
         {
             ViewBag.Title = "Playbook";
-            ViewBag.jsObject = _initsetup;
             ViewBag.weekShift = id;
 
             return View();

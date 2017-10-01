@@ -1,20 +1,20 @@
 ﻿using System.Xml.Linq;
-using Tuatara.Data.Models;
+using Tuatara.Data.Entities;
 using Tuatara.Data.Repositories;
 
 namespace Tuatara.Data.Xml
 {
-    public class XmlUserRepository: XmlRepositoryBase<TuataraUser>, IUserRepository
+    public class XmlUserRepository: XmlRepositoryBase<TuataraUserEntity>
     {
         public XmlUserRepository()
         {
-            var fileName = "CalendarItem.xml";
+            var fileName = "Users.xml";
             SimpleLoad(fileName);
         }
 
-        protected override TuataraUser ItemFactory(XElement node)
+        protected override TuataraUserEntity ItemFactory(XElement node)
         {
-            var item = new TuataraUser
+            var item = new TuataraUserEntity
             {
                 ID = node.GetIntFromChild("ID"),
                 Name = node.GetStringFromChild("Name"),

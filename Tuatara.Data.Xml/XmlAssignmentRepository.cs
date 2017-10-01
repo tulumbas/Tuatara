@@ -4,21 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using Tuatara.Data.Models;
+using Tuatara.Data.Entities;
 using Tuatara.Data.Repositories;
 
 namespace Tuatara.Data.Xml
 {
-    public class XmlAssignmentRepository : XmlRepositoryBase<Assignment>, IAssignmentRepository
+    public class XmlAssignmentRepository : XmlRepositoryBase<AssignmentEntity>
     {
         public XmlAssignmentRepository()
         {
             SimpleLoad("Assignments.xml");
         }
 
-        protected override Assignment ItemFactory(XElement node)
+        protected override AssignmentEntity ItemFactory(XElement node)
         {
-            var item = new Assignment
+            var item = new AssignmentEntity
             {
                 ApprovedStamp = node.GetStampFromChild("ApprovedStamp"),
                 ApproverID = node.GetNullableIntFromChild("ApproverID"),
@@ -31,9 +31,9 @@ namespace Tuatara.Data.Xml
                 WhatID = node.GetIntFromChild("WhatID"),
                 WhenID = node.GetIntFromChild("WhenID"),
 
-                Intraweek = (Intraweeks)node.GetIntFromChild("Intraweek"),
-                Priority = (Priorities)node.GetIntFromChild("Priority"),
-                Status = (Statuses)node.GetIntFromChild("Status"),                
+                IntraweekID = node.GetIntFromChild("Intraweek"),
+                PriorityID = node.GetIntFromChild("Priority"),
+                StatusID = node.GetIntFromChild("Status"),                
             };
 
             return item;

@@ -3,40 +3,45 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text;
+using System.Threading.Tasks;
+using Tuatara.Data.Entities;
 using Tuatara.Data.Repositories;
 
 namespace Tuatara.Data.DB
 {
-    public abstract class EFRepositoryBase<T> : IRepository<T> where T : class, new()
+    public class EFRepositoryBase<TEntity> : IRepository<TEntity> 
+        where TEntity : class, IBaseEntity
     {
-        protected TuataraContext _context;
-        protected IDbSet<T> Entities { get; private set; }
-
-        protected EFRepositoryBase()
+        public EFRepositoryBase(IDbContext context)
         {
-            _context = new TuataraContext();
-            Entities = _context.Set<T>();
+            _context = context;
+            Entities = _context.Set<TEntity>();
         }
 
-        public T Get(int id)
+        protected IDbContext _context;
+        protected IDbSet<TEntity> Entities { get; private set; }
+
+
+        public TEntity Get(int id)
         {
             return Entities.Find(id);
         }
 
-        public T FirstOrDefault(Expression<Func<T, bool>> predicate)
+        public TEntity FirstOrDefault(Expression<Func<TEntity, bool>> predicate)
         {
             //var filter = Expression.Lam
             return Entities.FirstOrDefault(predicate);
         }
 
-        public IEnumerable<T> GetAll()
+        public IEnumerable<TEntity> GetAll()
         {
             var list = Entities.ToList();
             return list;
         }
 
-        public IEnumerable<T> Query(Expression<Func<T, bool>> predicate = null,
-            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+        public IEnumerable<TEntity> Query(Expression<Func<TEntity, bool>> predicate = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             int? skip = default(int?),
             int? take = default(int?))
         {
@@ -44,12 +49,12 @@ namespace Tuatara.Data.DB
             return query.ToList();
         }
 
-        protected IQueryable<T> GetQuery(Expression<Func<T, bool>> predicate = null,
-            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+        protected IQueryable<TEntity> GetQuery(Expression<Func<TEntity, bool>> predicate = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             int? skip = default(int?),
             int? take = default(int?))
         {
-            IQueryable<T> query = Entities;
+            IQueryable<TEntity> query = Entities;
             if (predicate != null)
             {
                 query = query.Where(predicate);
@@ -91,6 +96,20 @@ namespace Tuatara.Data.DB
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-    }
 
+        public void Add(TEntity entity)
+        {
+            _context.SetAsAdded(entity);
+        }
+
+        public void Update(TEntity entity)
+        {
+            _context.SetAsModified(entity);
+        }
+
+        public void Delete(TEntity entity)
+        {
+            _context.SetAsDeleted(entity);
+        }
+    }
 }

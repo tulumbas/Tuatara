@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.Serialization;
-using Tuatara.Data.Models;
+using Tuatara.Data.Entities;
 using Tuatara.Data.Repositories;
 
 namespace Tuatara.Data.Xml
 {
-    public class XmlResourceRepository : XmlRepositoryBase<AssignableResource>, IResourceRepository
+    public class XmlResourceRepository : XmlRepositoryBase<AssignableResourceEntity>
     {
         public XmlResourceRepository()
         {
@@ -25,7 +25,7 @@ namespace Tuatara.Data.Xml
 
             foreach (var item in Items)
             {
-                AssignableResource parent;
+                AssignableResourceEntity parent;
                 if (item.ParentID.HasValue && reference.TryGetValue(item.ParentID.Value, out parent))
                 {
                     item.Parent = parent;
@@ -34,15 +34,15 @@ namespace Tuatara.Data.Xml
             }
         }
 
-        protected override AssignableResource ItemFactory(XElement node)
+        protected override AssignableResourceEntity ItemFactory(XElement node)
         {
-            var item = new AssignableResource
+            var item = new AssignableResourceEntity
             {
                 ID = node.GetIntFromChild("ID"),
                 IsBookable = node.GetIntFromChild("IsBookable") != 0,
                 ParentID = node.GetNullableIntFromChild("ParentID"),
                 Name = node.GetStringFromChild("Name"),
-                SubResources = new List<AssignableResource>()                
+                SubResources = new List<AssignableResourceEntity>()                
             };
 
             return item;

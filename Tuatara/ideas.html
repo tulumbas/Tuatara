@@ -2,7 +2,7 @@
 <html>
 <head>
     <title></title>
-	<meta charset="utf-8" />
+    <meta charset="utf-8" />
 </head>
 <body>
     <h4>User requsts weekly view:</h4>
@@ -15,11 +15,11 @@
     <h4>Playbook weekly view</h4>
     <p> + current week</p>
     <p> + row colors based on statuses</p>
-    
+
     <h5>Navigation</h5>
     <h6>nenu on top: go to next week/week selector; reports</h6>
     <h6>menu l2 contains: new record, edit selected (1st selected), delete selected, reschedule selected</h6>
-    
+
     <h5>Sorting</h5>
     <p> + Sorted by default: when/resouce</p>
     <p> + clicking on column header adds column in front of sorting</p>
@@ -27,6 +27,50 @@
     <h5>Interactivity</h5>
     <p> + string search oover the table</p>
     <p>show total resources in search results</p>
+
+
+    <h1>Again</h1>
+    <h3>structure</h3>
+    <ul>
+        <li>Tuatara.Data works with Db and contains DB-friendly entities and base enums</li>
+        <li>Tuatara.Services contains business objects and services working with them, referencing .Data. Exposes only busines objects</li>
+        <li>
+            Automapper
+            <ol>
+                <li>
+                    Is configured in Services to map from DB enitites to data entites and back, exposes
+                    AutomapperDataConfiguration, used in app Startup
+                </li>
+                <li>Is configured in WebApi part to map from business entities to DTO for Json responses</li>
+            </ol>
+        </li>
+    </ul>
+
+    <ol>
+        <li>Display playbook</li>
+        <li>Sort it</li>
+        <li>Add record</li>
+        <li>Delete recorde</li>
+        <li>Edit record in a popup</li>
+        <li>Reschedule to another week
+        <ul>
+            <li>pick a week</li>
+            <li>save the reason</li>
+            <li>save the amount of completed</li>
+        </ul>
+        </li>
+    </ol>
+
+    <h3>Creating new assignment</h3>
+    <ol>
+        <li>Week id</li>
+        <li>Project</li>
+        <li>Resource</li>
+        <li>Description</li>
+        <li>Priority</li>
+        <li>Intraweek</li>
+        <li>Duration</li>
+    </ol>
 
 </body>
 </html>

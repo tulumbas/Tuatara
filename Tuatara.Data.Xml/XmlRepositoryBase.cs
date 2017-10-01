@@ -7,11 +7,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using Tuatara.Data.Entities;
 using Tuatara.Data.Repositories;
 
 namespace Tuatara.Data.Xml
 {
-    public abstract class XmlRepositoryBase<T> : IRepository<T> where T:class, new()
+    public abstract class XmlRepositoryBase<T> : IReadOnlyRepository<T> where T:class, IBaseEntity
     {
         public List<T> Items { get; protected set; } 
         public Func<T, int, bool> CompareID { get; }

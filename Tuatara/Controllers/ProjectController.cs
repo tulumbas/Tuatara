@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using AutoMapper;
-using Tuatara.Data.Services;
-using Tuatara.Data.Dto;
+using Tuatara.Services.BL;
 
 namespace Tuatara.Controllers
 {
@@ -14,18 +12,6 @@ namespace Tuatara.Controllers
         public ProjectController(ProjectClientService service)
         {
             _service = service;
-        }
-
-        [HttpGet]
-        public IEnumerable<ProjectDto> Get(int id = 0)
-        {
-            var data = _service.GetAllProjects();
-            if(id != 0)
-            {
-                data = data.Where(p => p.ID == id);
-            }
-            var result = data.ToList();
-            return result;
         }
 
         [HttpGet]

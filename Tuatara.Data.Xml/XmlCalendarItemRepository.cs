@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using Tuatara.Data.Models;
+using Tuatara.Data.Entities;
 using Tuatara.Data.Repositories;
 
 namespace Tuatara.Data.Xml
 {
-    public class XmlCalendarItemRepository : XmlRepositoryBase<CalendarItem>, ICalendarItemRepository
+    public class XmlCalendarItemRepository : XmlRepositoryBase<CalendarItemEntity>
     {
         public XmlCalendarItemRepository()
         {
@@ -17,15 +17,15 @@ namespace Tuatara.Data.Xml
             SimpleLoad(fileName);
         }
 
-        public CalendarItem GetItemByDate(DateTime dt)
+        public CalendarItemEntity GetItemByDate(DateTime dt)
         {
             var serialDate = dt.Year * 10000 + dt.Month * 100 + dt.Day;
             return FirstOrDefault(cal => cal.ID == serialDate);
         }
 
-        protected override CalendarItem ItemFactory(XElement node)
+        protected override CalendarItemEntity ItemFactory(XElement node)
         {
-            var item = new CalendarItem
+            var item = new CalendarItemEntity
             {
                 ID = node.GetIntFromChild("ID"),
                 WeekNo = node.GetIntFromChild("WeekNo"),

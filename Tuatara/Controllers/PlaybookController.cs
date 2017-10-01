@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using AutoMapper;
 using System.Web.Http;
-using Tuatara.Data.Dto;
-using Tuatara.Data.Services;
+using Tuatara.Services;
+using Tuatara.Services.BL;
 
 namespace Tuatara.Controllers
 {
@@ -16,15 +12,23 @@ namespace Tuatara.Controllers
     public class PlaybookController : ApiController
     {
         AssignmentService _assignementService;
+        int _userID = 1;
 
         public PlaybookController(AssignmentService assignementService)
         {
             _assignementService = assignementService;
         }
                  
-        public PlaybookDto Get(int weekShift)
+        public Playbook Get(int weekShift)
         {
-            return _assignementService.GetPlaybookForWeekShift(weekShift);
+            var playbook = _assignementService.GetPlaybookForWeekShift(weekShift);
+            return playbook;
+        }
+
+        [HttpPost]
+        public void CreateRow(int weekID, PlaybookRow row)
+        {
+            _assignementService.CreateAssignment(weekID, row, _userID);
         }
     }
 }

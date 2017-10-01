@@ -1,11 +1,11 @@
+using AutoMapper;
 using Microsoft.Practices.Unity;
-using Microsoft.Practices.Unity.Configuration;
 using System;
 using System.Web.Configuration;
-using Tuatara.Data;
 using Tuatara.Data.DB;
 using Tuatara.Data.Repositories;
-using Tuatara.Data.Services;
+using Tuatara.Services;
+using Tuatara.Services.BL;
 
 namespace Tuatara.App_Start
 {
@@ -43,29 +43,23 @@ namespace Tuatara.App_Start
             // TODO: Register your types here
             // container.RegisterType<IProductRepository, ProductRepository>();
 
-            var automapperConfig = AutomapperConfig.Configure();
+            //var automapperConfig = AutomapperConfig.Configure();
+            var automapperConfig = new MapperConfiguration(cfg => {
+                cfg.AddProfile<TuataraDataProfile>(); // add profiles for all assemblies
+            });
             container.RegisterInstance(automapperConfig.CreateMapper());
-            
+
+            // DB
+            container.RegisterType<IDbContext, TuataraContext>();
+            container.RegisterType<IUnitOfWork, UnitOfWork>();
+
             // services
             container.RegisterType<AssignmentService>();
             container.RegisterType<CalendarService>();
             container.RegisterType<ProjectClientService>();
             container.RegisterType<ResourceService>();
             container.RegisterType<UserService>();
-
-            // EF repositories
-            if (WebConfigurationManager.AppSettings["mockupData"] == "true")
-            {
-
-            }
-            else
-            {
-                container.RegisterType<IAssignmentRepository, AssignmentRepository>();
-                container.RegisterType<ICalendarItemRepository, CalendarItemRepository>();
-                container.RegisterType<IProjectClientRepository, ProjectClientRepository>();
-                container.RegisterType<IResourceRepository, ResourceRepository>();
-                container.RegisterType<IUserRepository, UserRepository>();
-            }
+            container.RegisterType<StatusService>();
         }
     }
 }

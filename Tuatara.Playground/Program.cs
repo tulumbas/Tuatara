@@ -15,9 +15,10 @@ namespace Tuatara.Playground
             XmlContextExtensions.XMLDATA_FOLDER = @"C:\Users\Stan\Documents\Visual Studio 2015\Projects\Tuatara\Data";
             //var z = new XmlResourceRepository();
 
-            var db = new ResourceRepository();
-            var items = db.GetAll();
-            
+            DbPopulate.PopulateDB();
+
+            UnityConfig.RegisterTypes(UnityConfig.GetConfiguredContainer());
+            //PlayWithServices.Run();
         }
     }
 }

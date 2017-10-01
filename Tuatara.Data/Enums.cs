@@ -2,36 +2,36 @@
 
 namespace Tuatara.Data
 {
-    public enum Priorities
-    {
-        None,
-        Holiday,
-        Amber,
-        Red,
-        BAU,
-    };
+    //public enum Priorities
+    //{
+    //    None,
+    //    Holiday,
+    //    Amber,
+    //    Red,
+    //    BAU,
+    //};
 
-    public enum Statuses
-    {
-        Booked,
-        Confirmed,
-        Rescheduled,
-        Cancelled,
-        Completed,
-    };
+    //public enum Statuses
+    //{
+    //    Booked,
+    //    Confirmed,
+    //    Rescheduled,
+    //    Cancelled,
+    //    Completed,
+    //};
 
-    public enum Intraweeks
-    {
-        Mon,
-        Tue,
-        Start,
-        Wed,
-        Mid,
-        Thur,
-        Fri,
-        End,
-        Any
-    };
+    //public enum Intraweeks
+    //{
+    //    Mon,
+    //    Tue,
+    //    Start,
+    //    Wed,
+    //    Mid,
+    //    Thur,
+    //    Fri,
+    //    End,
+    //    Any
+    //};
 
     [Flags]
     public enum PeriodTypes : Int32
