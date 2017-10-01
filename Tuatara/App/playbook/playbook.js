@@ -27,6 +27,7 @@
         this.sortIndicator = sortIndicator; // helper, returning css class to show column sorting
         this.setCurrentRow = setCurrentRow;
         this.isCurrentRow = isCurrentRow;
+        this.isLoading = true;
        
         this.$onInit = function () {
             loadData(defaultWeekShift); // defined in a MVC View
@@ -44,6 +45,7 @@
             playbookService.getPlaybookForWeek(shift).then(function (data) {
                 _this.currentWeek = data.currentWeek;
                 _this.rows = data.rows;
+                _this.isLoading = false;
             });
         }        
 

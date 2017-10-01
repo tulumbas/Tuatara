@@ -44,9 +44,10 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-show="!v.rows.length"><td colspan="8" class="table-no-data">No data so far</td></tr>
+            <tr ng-show="v.isLoading"><td colspan="8" class="table-no-data">Loading...</td></tr>
+            <tr ng-show="!v.isLoading && !v.rows.length"><td colspan="8" class="table-no-data">No data so far</td></tr>
             <tr playbook-row
-                ng-class="'prio-' + rowData.priorityName + (v.isCurrentRow(rowData) ? ' highlighted-row' : '')"
+                ng-class="'prio-' + rowData.priorityName.toLowerCase() + (v.isCurrentRow(rowData) ? ' highlighted-row' : '')"
                 ng-click="v.setCurrentRow(rowData)"
                 ng-repeat="rowData in v.rows  | filter:searchString | orderBy:v.sortedBy:v.sortedZA as filteredResult track by rowData.id"></tr>
         </tbody>

@@ -22,30 +22,30 @@ namespace Tuatara.Migrations
             //  This method will be called after migrating to the latest version.
             context.Priorities.AddOrUpdate(
                 p => p.Name,
-                new PriorityEntity { Name = "Holiday", DefaultSortOrder = 100 },
-                new PriorityEntity { Name = "BAU", DefaultSortOrder = 1 },
-                new PriorityEntity { Name = "Red", DefaultSortOrder = 2 },
-                new PriorityEntity { Name = "Amber", DefaultSortOrder = 3 });
+                new PriorityEntity { Name = "Holiday", DefaultSortOrder = 100, ID = 1 },
+                new PriorityEntity { Name = "BAU", DefaultSortOrder = 1, ID = 4 },
+                new PriorityEntity { Name = "Red", DefaultSortOrder = 2, ID = 3 },
+                new PriorityEntity { Name = "Amber", DefaultSortOrder = 3, ID = 2 });
 
             context.Intraweeks.AddOrUpdate(
                 p => p.Name,
-                new IntraweekEntity { Name = "Mon", DefaultSortOrder = 1 },
-                new IntraweekEntity { Name = "Tue", DefaultSortOrder = 2 },
-                new IntraweekEntity { Name = "Start", DefaultSortOrder = 3 },
-                new IntraweekEntity { Name = "Wed", DefaultSortOrder = 4 },
-                new IntraweekEntity { Name = "Mid", DefaultSortOrder = 5 },
-                new IntraweekEntity { Name = "Thur", DefaultSortOrder = 6 },
-                new IntraweekEntity { Name = "Fri", DefaultSortOrder = 7 },
-                new IntraweekEntity { Name = "End", DefaultSortOrder = 8 },
-                new IntraweekEntity { Name = "Any", DefaultSortOrder = 9 });
+                new IntraweekEntity { Name = "Mon", DefaultSortOrder = 1, ID = 1 },
+                new IntraweekEntity { Name = "Tue", DefaultSortOrder = 2, ID = 2 },
+                new IntraweekEntity { Name = "Start", DefaultSortOrder = 3, ID = 3 },
+                new IntraweekEntity { Name = "Wed", DefaultSortOrder = 4, ID = 4 },
+                new IntraweekEntity { Name = "Mid", DefaultSortOrder = 5, ID = 5 },
+                new IntraweekEntity { Name = "Thur", DefaultSortOrder = 6, ID = 6 },
+                new IntraweekEntity { Name = "Fri", DefaultSortOrder = 7, ID = 7 },
+                new IntraweekEntity { Name = "End", DefaultSortOrder = 8, ID = 8 },
+                new IntraweekEntity { Name = "Any", DefaultSortOrder = 9, ID = 9 });
 
             context.PlaybookStatuses.AddOrUpdate(
                 p => p.Name,
-                new PlaybookStatusEntity { Name = "Booked", DefaultSortOrder = 1 },
-                new PlaybookStatusEntity { Name = "Confirmed", DefaultSortOrder = 2 },
-                new PlaybookStatusEntity { Name = "Completed", DefaultSortOrder = 3 },
-                new PlaybookStatusEntity { Name = "Rescheduled", DefaultSortOrder = 4 },
-                new PlaybookStatusEntity { Name = "Cancelled", DefaultSortOrder = 5 });
+                new PlaybookStatusEntity { Name = "Booked", DefaultSortOrder = 1, ID = 1 },
+                new PlaybookStatusEntity { Name = "Confirmed", DefaultSortOrder = 2, ID = 2 },
+                new PlaybookStatusEntity { Name = "Completed", DefaultSortOrder = 3, ID = 3 },
+                new PlaybookStatusEntity { Name = "Rescheduled", DefaultSortOrder = 4, ID = 4 },
+                new PlaybookStatusEntity { Name = "Cancelled", DefaultSortOrder = 5, ID = 5 });
 
             var calendar = CreateCalendar();
             context.CalendarItems.AddOrUpdate(p => p.ID, calendar);

@@ -7,6 +7,7 @@ namespace Tuatara.Data.Entities
     public class IntraweekEntity : IBaseEntity
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ID { get; set; }
 
         [Required]

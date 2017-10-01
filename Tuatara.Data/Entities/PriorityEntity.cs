@@ -7,6 +7,7 @@ namespace Tuatara.Data.Entities
     public class PriorityEntity : IBaseEntity
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ID { get; set; }
 
         [Required]
