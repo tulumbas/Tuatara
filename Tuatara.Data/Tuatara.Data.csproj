@@ -65,10 +65,6 @@
     <Compile Include="Dto\ResourceDto.cs" />
     <Compile Include="Entities\IBaseEntity.cs" />
     <Compile Include="Enums.cs" />
-    <Compile Include="Migrations\201710010006546_RenameProjectName.cs" />
-    <Compile Include="Migrations\201710010006546_RenameProjectName.Designer.cs">
-      <DependentUpon>201710010006546_RenameProjectName.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Entities\IntraweekEntity.cs" />
     <Compile Include="Entities\PlaybookStatusEntity.cs" />
@@ -87,11 +83,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201710010006546_RenameProjectName.resx">
-      <DependentUpon>201710010006546_RenameProjectName.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
