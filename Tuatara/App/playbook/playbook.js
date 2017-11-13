@@ -28,6 +28,7 @@
         this.setCurrentRow = setCurrentRow;
         this.isCurrentRow = isCurrentRow;
         this.isLoading = true;
+        this.openRowEditor = openNewRowEditor;
        
         this.$onInit = function () {
             loadData(defaultWeekShift); // defined in a MVC View
@@ -69,6 +70,10 @@
                 _this.sortedBy = newSort;
             }
         }
+
+        function openNewRowEditor () { 
+            playbookService.openRowEditor(); 
+        };
 
     }
 

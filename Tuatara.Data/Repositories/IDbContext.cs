@@ -17,5 +17,6 @@ namespace Tuatara.Data.Repositories
         void BeginTransaction();
         int Commit();
         void Rollback();
+        void Detach<TEntity>(TEntity entity) where TEntity : class, IBaseEntity;
     }
 }

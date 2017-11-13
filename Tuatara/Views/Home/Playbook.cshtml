@@ -21,13 +21,6 @@
 }
 
 @section scripts {
-@*@Scripts.Render("~/bundles/tuatara")*@
-    <script src="~/App/lib.js"></script>
-    <script src="~/App/services/playbook-service.js"></script>
-    <script src="~/App/playbook/playbook.js"></script>
-    <script src="~/App/playbook/row/playbook-row.js"></script>
-    <script src="~/App/playbook/row/playbook-roweditor.js"></script>
-    <script src="~/App/tuatara.js"></script>
     <script>
         var obj = @Html.Raw(Json.Encode(ViewBag.jsObject));
         var defaultWeekShift = @Html.Raw(ViewBag.weekShift);

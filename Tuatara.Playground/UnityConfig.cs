@@ -1,14 +1,10 @@
 ﻿using AutoMapper;
-using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Tuatara.Data.DB;
 using Tuatara.Data.Repositories;
 using Tuatara.Services;
 using Tuatara.Services.BL;
+using Unity;
 
 namespace Tuatara.Playground
 {

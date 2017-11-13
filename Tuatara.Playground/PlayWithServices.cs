@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Practices.Unity;
-using Tuatara.Services.BL;
-using Tuatara.Services;
+using System.Linq.Expressions;
 using Tuatara.Data.Entities;
 using Tuatara.Data.Repositories;
-using System.Linq.Expressions;
+using Tuatara.Services;
+using Tuatara.Services.BL;
+using Unity;
 
 namespace Tuatara.Playground
 {

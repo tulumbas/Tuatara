@@ -1,0 +1,43 @@
+﻿
+<div class="row">
+    <div class="form-inline">
+        <div class="form-group has-feedback">
+            <label for="searchText" class="control-label">Search:</label>
+            <input type="text" class="form-control" id="searchText" placeholder="Please enter text for search" ng-model="searchString">
+            <span class="form-control-feedback glyphicon glyphicon-search" aria-hidden="true"></span>
+        </div>
+        
+        <button class="btn btn-primary pull-right" ng-click="v.openRowEditor()">Add new</button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Edit</th>
+                    <th>Name</th>
+                    <th>Parent</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-show="v.isLoading">
+                    <td class="col-md-1"></td><td class="table-no-data">Loading...</td>
+                </tr>
+                <tr ng-show="!v.isLoading && !v.rows.length">
+                    <td class="col-md-1"></td><td class="table-no-data">No data so far</td>
+                </tr>
+                <tr ng-repeat="proj in v.rows | filter:searchString ">
+                    <td class="col-md-1">
+                        <span class="glyphicon glyphicon-pencil edit-icon" ng-click="v.openRowEditor(proj)"></span>
+                        <span class="glyphicon glyphicon-trash delete-icon" ng-click="v.deleteRecord(proj)"></span>
+                        <input type="hidden" value="{{proj.id}}" name="id" />
+                    </td>
+                    <td class="col-md-4">{{proj.name}}</td>
+                    <td class="col-md-4">{{proj.parentName}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

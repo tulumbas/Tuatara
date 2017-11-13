@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using Tuatara.Services;
 using Tuatara.Services.BL;
@@ -12,11 +14,14 @@ namespace Tuatara.Controllers
     public class PlaybookController : ApiController
     {
         AssignmentService _assignementService;
+        ProjectClientService _projectService;
+
         int _userID = 1;
 
-        public PlaybookController(AssignmentService assignementService)
+        public PlaybookController(AssignmentService assignementService, ProjectClientService projectService)
         {
             _assignementService = assignementService;
+            _projectService = projectService;
         }
                  
         public Playbook Get(int weekShift)
@@ -29,6 +34,12 @@ namespace Tuatara.Controllers
         public void CreateRow(int weekID, PlaybookRow row)
         {
             _assignementService.CreateAssignment(weekID, row, _userID);
+        }
+
+        [HttpGet]
+        public IEnumerable<string> FindByName(string name)
+        {
+            return _projectService.FindByName(name).Select(x => x.Name);
         }
     }
 }

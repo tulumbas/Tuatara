@@ -1,11 +1,8 @@
 ﻿using AutoMapper;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Tuatara.Data.Dto;
 using Tuatara.Data.Entities;
 using Tuatara.Data.Repositories;
+using Tuatara.Services.Dto;
 
 namespace Tuatara.Services.BL
 {

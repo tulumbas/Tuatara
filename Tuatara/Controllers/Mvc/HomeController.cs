@@ -23,16 +23,23 @@ namespace Tuatara.Controllers.Mvc
             return View();
         }
 
-        //public ViewResult Playbook()
-        //{
-        //    return Playbook(0);
-        //}
-
         public ViewResult Playbook(int id = 0)
         {
             ViewBag.Title = "Playbook";
             ViewBag.weekShift = id;
 
+            return View();
+        }
+
+        public ViewResult WorkItems()
+        {
+            ViewBag.Title = "Work Items";
+            return View();
+        }
+
+        public ViewResult AssignableResources()
+        {
+            ViewBag.Title = "Resources";
             return View();
         }
 

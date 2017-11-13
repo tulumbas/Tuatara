@@ -10,8 +10,10 @@
 
         this.$onInit = function () {
             var sourceData = _this.resolve.rowData;
-            $scope.isNew = (sourceData === null || isNaN(sourceData.id) || sourceData.id === 0);
-            $scope.id = sourceData.id;            
+            $scope.isNew = (!sourceData || isNaN(sourceData.id) || sourceData.id === 0);
+            if (!$scope.isNew) {
+                $scope.id = sourceData.id;
+            }
             $scope.data = new Tuatara.PlaybookWeekRow(sourceData);
         }
 

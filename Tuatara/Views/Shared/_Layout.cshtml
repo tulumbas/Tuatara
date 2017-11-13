@@ -19,13 +19,38 @@
                 @Html.ActionLink("Tuatara", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                @RenderSection("menu")
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Playbook", "playbook", "home", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Projects", "workitems", "home", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Resources", "AssignableResources", "home", new { area = "" }, null)</li>
+                    @RenderSection("menu", false)
+                </ul>
             </div>
         </div>
     </div>
     <div class="container-fluid body-content">
         @RenderBody()
     </div>
+
+    <script src="~/app/lib.js"></script>
+
+    <script src="~/app/tuatara.js"></script>
+
+    <script src="~/app/core/core-services.js"></script>
+
+    <script src="~/app/playbook/playbook-service.js"></script>
+    <script src="~/app/playbook/playbook.js"></script>
+    <script src="~/app/playbook/row/playbook-row.js"></script>
+    <script src="~/app/playbook/row/playbook-roweditor.js"></script>
+    <script src="~/app/playbook/playbook-install.js"></script>
+
+    <script src="~/app/editor-wi/editor-wi.js"></script>
+    <script src="~/app/editor-wi/editor-wi-row.js"></script>
+    <script src="~/app/editor-wi/editor-wi-install.js"></script>
+
+    <script src="~/app/workresources/workresources.js"></script>
+    <script src="~/app/workresources/workresources-row.js"></script>
+    <script src="~/app/workresources/workresources-install.js"></script>
 
     @RenderSection("scripts", required: false)
 </body>

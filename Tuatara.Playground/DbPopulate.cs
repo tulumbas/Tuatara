@@ -27,7 +27,7 @@ namespace Tuatara.Playground
             where TXmlRepository: IReadOnlyRepository<T>, new()
         {
             var repository = new TXmlRepository();
-            var data = repository.GetAll().ToArray();
+            var data = repository.Query().ToArray();
 
             using (var context = new TuataraContext())
             {

@@ -1,0 +1,24 @@
+{
+  "name": "tuatara",
+  "description": "tuatara is tuatara",
+  "dependencies": {
+  },
+  "main": "index.js",
+  "authors": [
+    "tulumbas"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "angularjs",
+    "tuatara"
+  ],
+  "homepage": "https://github.com/tulumbas/Tuatara",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

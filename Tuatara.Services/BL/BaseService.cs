@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using Tuatara.Data.Repositories;
 
 namespace Tuatara.Services.BL
 {
     public abstract class BaseService : IDisposable
     {
-        public IUnitOfWork UnitOfWork { get; private set; }
+        public IUnitOfWork UnitOfWork { get; }
         private bool _isDisposed;
 
         protected BaseService(IUnitOfWork unitOfWork)

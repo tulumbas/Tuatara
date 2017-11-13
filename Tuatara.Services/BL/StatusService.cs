@@ -33,7 +33,7 @@ namespace Tuatara.Services.BL
                 {
                     if (_knownStatuses == null)
                     {
-                        var data = _repository.GetAll().ToList();
+                        var data = _repository.Query().ToList();
                         _knownStatuses = _knownStatusesNames
                             .Select(n => new { key = n, value = data.FirstOrDefault(x => x.Name == n) })
                             .ToDictionary(x => x.key, x => x.value);

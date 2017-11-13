@@ -11,9 +11,9 @@
                        placeholder="Start typing project or client name"
                        uib-typeahead="project for project in getProjects($viewValue)"
                        typeahead-editable="false"
-                       typeahead-loading="loadingProjects"
-                       typeahead-no-results="noResultsProjects"
-                       ng-class="{'invalid-input': noResultsProjects, 'loading': loadingProjects}"
+                       typeahead-loading="loadingTypeAhead"
+                       typeahead-no-results="noResultsTypeAhead"
+                       ng-class="{'invalid-input': noResultsTypeAhead, 'loading': loadingTypeAhead}"
                        class="form-control"
                        id="rowedit-project">
             </div>

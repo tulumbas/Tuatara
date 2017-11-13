@@ -21,7 +21,7 @@ namespace Tuatara.Services.BL
 
         public IEnumerable<TuataraUserEntity> GetAll()
         {
-            return _repository.GetAll();
+            return _repository.Query();
         }
 
         protected override void DisposeDisposables()

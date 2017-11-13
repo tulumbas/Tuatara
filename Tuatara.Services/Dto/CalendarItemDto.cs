@@ -1,6 +1,6 @@
 ﻿using Tuatara.Data;
 
-namespace Tuatara.Data.Dto
+namespace Tuatara.Services.Dto
 {
     public class CalendarItemDto
     {

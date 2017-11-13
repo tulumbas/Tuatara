@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Tuatara.Data.Dto;
+using Tuatara.Services.Dto;
 using Tuatara.Data.Entities;
 
 namespace Tuatara.Services
@@ -20,9 +20,10 @@ namespace Tuatara.Services
                     opts => opts.MapFrom(src => src.Status.DefaultSortOrder))
                     ;
 
-            CreateMap<WorkEntity, ProjectDto>(MemberList.Destination);
-            CreateMap<AssignableResourceEntity, ResourceDto>(MemberList.Destination);
-            CreateMap<CalendarItemEntity, CalendarItemDto>(MemberList.Destination);
+            CreateMap<WorkEntity, ProjectDtoWithParent>(MemberList.Destination).ReverseMap();
+            CreateMap<WorkEntity, ProjectDto>(MemberList.Destination).ReverseMap();
+            CreateMap<AssignableResourceEntity, ResourceDto>(MemberList.Destination).ReverseMap();
+            CreateMap<CalendarItemEntity, CalendarItemDto>(MemberList.Destination).ReverseMap();
         }
     }
 }

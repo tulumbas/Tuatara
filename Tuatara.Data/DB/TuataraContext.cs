@@ -1,4 +1,5 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Data;
 using System.Data.Common;
 using System.Data.Entity;
@@ -12,6 +13,9 @@ namespace Tuatara.Data.DB
 {
     public class TuataraContext : DbContext, IDbContext
     {
+        static readonly ILog _logger = LogManager.GetLogger(nameof(TuataraContext));
+        static readonly ILog _sqlTracer = LogManager.GetLogger("traceSQL");
+
         private ObjectContext _objectContext;
         private DbTransaction _transaction;
 
@@ -27,6 +31,8 @@ namespace Tuatara.Data.DB
         public TuataraContext()
             : base("TuataraContext")
         {
+            _logger.Debug("Context created");
+
             CalendarItems = Set<CalendarItemEntity>();
             Works = Set<WorkEntity>();
             Resources = Set<AssignableResourceEntity>();
@@ -35,6 +41,8 @@ namespace Tuatara.Data.DB
             Intraweeks = Set<IntraweekEntity>();
             Priorities = Set<PriorityEntity>();
             Assignments = Set<AssignmentEntity>();
+
+            Database.Log = (msg) => _sqlTracer.Debug(msg);
         }
 
         #region IDbContext
@@ -131,6 +139,11 @@ namespace Tuatara.Data.DB
                 Set<TEntity>().Attach(entity);
             }
             return dbEntityEntry;
+        }
+
+        public void Detach<TEntity>(TEntity entity) where TEntity : class, IBaseEntity
+        {
+            Entry<TEntity>(entity).State = EntityState.Detached;
         }
 
         #endregion

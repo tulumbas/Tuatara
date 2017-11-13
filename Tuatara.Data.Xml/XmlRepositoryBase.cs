@@ -14,6 +14,8 @@ namespace Tuatara.Data.Xml
 {
     public abstract class XmlRepositoryBase<T> : IReadOnlyRepository<T> where T:class, IBaseEntity
     {
+        public string[] Includes { get; protected set; }
+
         public List<T> Items { get; protected set; } 
         public Func<T, int, bool> CompareID { get; }
 
@@ -58,7 +60,7 @@ namespace Tuatara.Data.Xml
             return Items;
         }
 
-        public virtual IEnumerable<T> Query(Expression<Func<T, bool>> predicate = null, 
+        public virtual IQueryable<T> Query(Expression<Func<T, bool>> predicate = null, 
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, 
             int? skip = default(int?), int? take = default(int?))
         {
@@ -84,6 +86,11 @@ namespace Tuatara.Data.Xml
             }
 
             return query;
+        }
+
+        public void SetIncludes(IEnumerable<string> fields)
+        {
+            Includes = fields.ToArray();            
         }
     }
 }

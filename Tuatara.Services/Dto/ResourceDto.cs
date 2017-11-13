@@ -1,4 +1,4 @@
-﻿namespace Tuatara.Data.Dto
+﻿namespace Tuatara.Services.Dto
 {
     public class ResourceDto
     {
