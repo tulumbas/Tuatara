@@ -39,6 +39,7 @@ TestResult.xml
 [Dd]ebugPS/
 [Rr]eleasePS/
 dlldata.c
+_bin_deployableAssemblies/
 
 # DNX
 project.lock.json
@@ -191,6 +192,7 @@ ClientBin/
 *.pfx
 *.publishsettings
 node_modules/
+bower_components/
 orleans.codegen.cs
 
 # Since there are multiple workflows, uncomment next line to ignore bower_components
