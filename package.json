@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "tuatara is tuatara",
   "main": "index.js",
-
   "devDependencies": {
     "bower": "^1.7.7",
     "http-server": "^0.9.0",
@@ -12,17 +11,14 @@
     "karma-chrome-launcher": "^0.2.3",
     "karma-firefox-launcher": "^0.1.7",
     "karma-jasmine": "^0.3.8",
+    "karma-spec-reporter": "0.0.31",
     "protractor": "^4.0.9"
   },
-
   "scripts": {
     "test": "karma start karma.conf.js",
     "test-single-run": "karma start karma.conf.js --single-run",
-
     "start": "http-server ./app -a localhost -p 8000 -c-1",
-
     "update-webdriver": "webdriver-manager update",
-
     "preprotractor": "npm run update-webdriver",
     "protractor": "protractor e2e-tests/protractor.conf.js"
   },

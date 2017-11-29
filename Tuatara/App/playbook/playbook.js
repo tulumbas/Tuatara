@@ -16,7 +16,7 @@
 (function () {
     var Tuatara = (window.Tuatara || (window.Tuatara = {}));
 
-    Tuatara.playbookController = function (playbookService, $log, $scope) {
+    Tuatara.playbookController = function (playbookService, $log, $scope, $routeParams) {
         var _this = this;
         var currentRow = null;
 
@@ -29,9 +29,10 @@
         this.isCurrentRow = isCurrentRow;
         this.isLoading = true;
         this.openRowEditor = openNewRowEditor;
-       
+
         this.$onInit = function () {
-            loadData(defaultWeekShift); // defined in a MVC View
+            var shift = $routeParams.weekShift ? $routeParams.weekShift : 0;
+            loadData(shift); // defined in a MVC View
         };
 
         function isCurrentRow(r) {
@@ -43,12 +44,13 @@
         }
 
         function loadData(shift) {
+            console.log("Loading week: " + shift)
             playbookService.getPlaybookForWeek(shift).then(function (data) {
                 _this.currentWeek = data.currentWeek;
                 _this.rows = data.rows;
                 _this.isLoading = false;
             });
-        }        
+        }
 
         function sortIndicator(columnName) {
             if (_this.sortedBy[0] === columnName) {
@@ -58,7 +60,7 @@
         }
 
         function sortBy(columnName) {
-            if(_this.sortedBy[0] === columnName) {
+            if (_this.sortedBy[0] === columnName) {
                 _this.sortedZA = !_this.sortedZA;
             } else {
                 _this.sortedZA = false;
@@ -71,10 +73,16 @@
             }
         }
 
-        function openNewRowEditor () { 
-            playbookService.openRowEditor(); 
+        function openNewRowEditor() {
+            playbookService.openRowEditor();
         };
 
     }
+
+    angular.module('playbook').component('playbook', {
+        controller: ['playBookService', '$log', '$scope', '$routeParams', Tuatara.playbookController],
+        controllerAs: 'v',
+        templateUrl: '/app/playbook/root.html'
+    });
 
 })();

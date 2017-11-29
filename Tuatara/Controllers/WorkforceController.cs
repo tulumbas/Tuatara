@@ -5,11 +5,11 @@ using Tuatara.Services.Dto;
 
 namespace Tuatara.Controllers
 {
-    public class ResourcesController : ApiController
+    public class WorkforceController : ApiController
     {
         ResourceService _service;
 
-        public ResourcesController(ResourceService service)
+        public WorkforceController(ResourceService service)
         {
             _service = service;
         }

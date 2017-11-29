@@ -15,7 +15,8 @@ module.exports = function (config) {
         plugins: [
             'karma-chrome-launcher',
             //'karma-firefox-launcher',
-            'karma-jasmine'
+            'karma-jasmine',
+            'karma-spec-reporter'
         ],
 
 
@@ -25,7 +26,7 @@ module.exports = function (config) {
           'scripts/angular-mocks.js',
           'scripts/angular-resource.js',
           'scripts/angular-ui/ui-bootstrap.min.js',
-          'scripts/ui-bootstrap-tpls-2.5.0.min',
+          'scripts/ui-bootstrap-tpls-2.5.0.min.js',
           'app/**/*.js',
           'scripts/tests/**/*.js'          
         ],
@@ -45,7 +46,7 @@ module.exports = function (config) {
         // test results reporter to use
         // possible values: 'dots', 'progress'
         // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-        reporters: ['progress'],
+        reporters: ['spec'],
 
 
         // web server port
@@ -76,6 +77,10 @@ module.exports = function (config) {
 
         // Concurrency level
         // how many browser should be started simultaneous
-        concurrency: Infinity
+        concurrency: Infinity,
+
+        client: {
+            captureConsole: true
+        }
     })
 }

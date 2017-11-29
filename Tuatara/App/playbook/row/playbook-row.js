@@ -7,4 +7,14 @@
         this.openRowEditor = function () { playbookService.openRowEditor($scope.rowData); };
         $scope.rowData.selected = false;
     }
+
+    angular.module('playbook').directive('playbookRow', function () {
+        return {
+            restrict: 'A',
+            controller: ['playBookService', '$log', '$scope', Tuatara.playbookRowController],
+            controllerAs: 'r',
+            templateUrl: '/app/playbook/row/row.html'
+        }
+    });
+
 })();

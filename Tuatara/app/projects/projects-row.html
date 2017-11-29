@@ -1,15 +1,16 @@
 ﻿<div class="modal-header">
     <h3 class="modal-title" id="modal-title">Project or product:</h3>
 </div>
-<div class="modal-body" id="modal-body">
-    <input type="hidden" ng-model="id" />
-    <div ng-show="error" class="bs-callout bs-callout-danger"><h4>Validation error</h4><p>{{error}}</p></div>
+<div class="modal-body" id="modal-body" ng-class="{loading: r.loading}">
+    <input type="hidden" ng-model="r.id" />
+    <div ng-show="r.error" class="bs-callout bs-callout-danger"><h4>Validation error</h4><p>{{r.error}}</p></div>
     <div class="form-horizontal">
         <div class="form-group">
             <label for="rowedit-description" class="control-label col-sm-2">Name:</label>
             <div class="col-sm-9">
                 <input type="text"
-                       ng-model="name"
+                       ng-model="r.name"
+                       ng-disabled="r.inputDisabled"
                        placeholder="Add details on what needs to be done"
                        class="form-control"
                        id="rowwi-projectname" />
@@ -20,12 +21,13 @@
             <label for="rowedit-project" class="control-label col-sm-2">Parent:</label>
             <div class="col-sm-9">
                 <input type="text"
-                       ng-model="parent"
+                       ng-model="r.parent"
+                       ng-disabled="r.inputDisabled"
                        placeholder="Start typing project or client name"
-                       uib-typeahead="project as project.name for project in getProjects($viewValue)"
+                       uib-typeahead="project as project.name for project in r.getProjects($viewValue)"
                        typeahead-editable="false"
                        typeahead-loading="loadingTypeAhead"
-                       typeahead-no-results="noResultsProjects"
+                       typeahead-no-results="noResultsTypeAhead"
                        ng-class="{'invalid-input': noResultsTypeAhead, 'loading': loadingTypeAhead}"
                        class="form-control"
                        id="rowwi-parent">
@@ -35,6 +37,6 @@
 </div>
 
 <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
-    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    <button class="btn btn-primary" type="button" ng-disabled="r.inputDisabled" ng-click="r.ok()">OK</button>
+    <button class="btn btn-warning" type="button" ng-click="r.cancel()">Cancel</button>
 </div>

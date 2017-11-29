@@ -224,9 +224,10 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\Mvc\HomeController.cs" />
+    <Compile Include="Controllers\Mvc\RootController.cs" />
     <Compile Include="Controllers\PlaybookController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
-    <Compile Include="Controllers\ResourcesController.cs" />
+    <Compile Include="Controllers\WorkforceController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -235,17 +236,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\core\core-services.js" />
-    <Content Include="app\editor-wi\editor-wi-install.js" />
-    <Content Include="app\editor-wi\editor-wi-row.js" />
-    <Content Include="app\editor-wi\editor-wi.html" />
-    <Content Include="app\editor-wi\editor-wi.js" />
-    <Content Include="app\editor-wi\editor-wi-row.html" />
-    <Content Include="app\playbook\playbook-install.js" />
-    <Content Include="app\workresources\workresources-row.html" />
-    <Content Include="app\workresources\workresources-row.js" />
-    <Content Include="app\workresources\workresources.html" />
-    <Content Include="app\workresources\workresources-install.js" />
-    <Content Include="app\workresources\workresources.js" />
+    <Content Include="app\modules.js" />
+    <Content Include="app\projects\projects-row.controller.js" />
+    <Content Include="app\projects\projects-list.html" />
+    <Content Include="app\projects\projects-list.component.js" />
+    <Content Include="app\projects\projects-row.html" />
+    <Content Include="app\workforce\workforce-row.html" />
+    <Content Include="app\workforce\workforce-row.controller.js" />
+    <Content Include="app\workforce\workforce-list.html" />
+    <Content Include="app\workforce\workforce-list.component.js" />
     <Content Include="App_Data\logs\LogFilesAreHere.txt" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\angular-xeditable-0.8.0\css\xeditable.css" />
@@ -290,7 +289,8 @@
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\angular-resource.js" />
     <Content Include="Scripts\angular-resource.min.js" />
-    <Content Include="Scripts\angular-ui-router.min.js" />
+    <Content Include="Scripts\angular-route.js" />
+    <Content Include="Scripts\angular-route.min.js" />
     <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.js" />
     <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.min.js" />
     <Content Include="Scripts\angular-ui\ui-bootstrap.js" />
@@ -311,9 +311,13 @@
     <Content Include="Scripts\select.js" />
     <Content Include="Scripts\select.min.js" />
     <Content Include="app\tuatara.js" />
-    <Content Include="Scripts\tests\core\workitems.spec.js" />
-    <Content Include="Scripts\tests\editorwi\editor-wi-row.spec.js" />
-    <Content Include="Scripts\tests\editorwi\editor-wi.spec.js" />
+    <Content Include="Scripts\tests\core\errorParser.service.spec.js" />
+    <Content Include="Scripts\tests\mocks\user-confirmation.mock.js" />
+    <Content Include="Scripts\tests\playbook\playbook.component.spec.js" />
+    <Content Include="Scripts\tests\projects\projects-row.spec.js" />
+    <Content Include="Scripts\tests\projects\projects-list.spec.js" />
+    <Content Include="Scripts\tests\workforce\workforce-list.spec.js" />
+    <Content Include="Scripts\tests\workforce\workforce-row.spec.js" />
     <Content Include="Scripts\ui-bootstrap-tpls-2.5.0.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -330,9 +334,12 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\WorkItems.cshtml" />
-    <Content Include="Views\Home\AssignableResources.cshtml" />
+    <Content Include="Views\Home\Projects.cshtml" />
     <Content Include="log4net.config" />
+    <Content Include="Views\Home\WorkForce.cshtml" />
+    <Content Include="Scripts\tests\playbook\playbook.service.spec.js" />
+    <Content Include="Views\Root\Index.cshtml" />
+    <Content Include="Scripts\angular-route.min.js.map" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />

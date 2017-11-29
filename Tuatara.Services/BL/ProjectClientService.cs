@@ -60,12 +60,13 @@ namespace Tuatara.Services.BL
             return project;
         }
 
-        public void Update(ProjectDto project)
+        public ProjectDto Update(ProjectDto project)
         {
             var entity = _mapper.Map<WorkEntity>(project);
             UnitOfWork.BeginTransaction();
             Repository.Update(entity);
             UnitOfWork.Commit();
+            return project;
         }
 
         public void Delete(int id)

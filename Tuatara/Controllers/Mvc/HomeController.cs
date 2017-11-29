@@ -31,13 +31,13 @@ namespace Tuatara.Controllers.Mvc
             return View();
         }
 
-        public ViewResult WorkItems()
+        public ViewResult Projects()
         {
-            ViewBag.Title = "Work Items";
+            ViewBag.Title = "Projects and Products";
             return View();
         }
 
-        public ViewResult AssignableResources()
+        public ViewResult Workforce()
         {
             ViewBag.Title = "Resources";
             return View();

@@ -1,5 +1,5 @@
 ﻿/* Operations: 
- - get wee
+ - get week
  - display assignments ... component?
  - display totals ... component?
  - add row ... popup?
@@ -15,7 +15,7 @@
     'use strict';
     var Tuatara = (window.Tuatara || (window.Tuatara = {}));
 
-    Tuatara.playbookService = function ($http, $log, $uibModal) {
+    Tuatara.playbookService = function (errorParser, $http, $log, $uibModal) {
         this.getProjects = getProjects;
         this.getWeekFromCurrent = getWeekFromCurrent;
         this.getPlaybookForWeek = getPlaybookForWeek;
@@ -32,10 +32,12 @@
 
         function getPlaybookForWeek(weekShift) {
             return $http
-                .get('/api/playbook/get?weekShift=' + weekShift.toString())
-                .then(function (payload) {
+                .get('/api/playbook/get?weekShift=' + weekShift.toString(), function (payload) {
                     return new Tuatara.Playbook(payload.data);
-                })
+                }, function (error) {
+                    var e = errorParser(error);
+                    $log.error('Error loading playbook week ' + e.getAll());
+                });
             ;
         }
 
@@ -126,4 +128,5 @@
         }
     }
 
+    angular.module('playbook').service('playBookService', ['errorParser', '$http', '$log', '$uibModal', Tuatara.playbookService])
 })();

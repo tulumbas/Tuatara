@@ -16,20 +16,21 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Tuatara", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <a href="/" class="navbar-brand"></a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Playbook", "playbook", "home", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("Projects", "Projects", "home", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("Resources", "WorkForce", "home", new { area = "" }, null)</li>
-                    @RenderSection("menu", false)
+                    <li><a href="/#/playbook/0">Playbook</a></li>
+                    <li><a href="/#/projects">Projects</a></li>
+                    <li><a href="/#/resources">Resources</a></li>
                 </ul>
             </div>
         </div>
     </div>
     <div class="container-fluid body-content">
-        @RenderBody()
+
+        <ng-view></ng-view>
+
     </div>
 
     <script src="~/app/lib.js"></script>
@@ -42,14 +43,11 @@
     <script src="~/app/playbook/playbook.js"></script>
     <script src="~/app/playbook/row/playbook-row.js"></script>
     <script src="~/app/playbook/row/playbook-roweditor.js"></script>
-    <script src="~/app/playbook/playbook-install.js"></script>
 
     <script src="~/app/projects/projects-list.component.js"></script>
     <script src="~/app/projects/projects-row.controller.js"></script>
 
     <script src="~/app/workforce/workforce-list.component.js"></script>
     <script src="~/app/workforce/workforce-row.controller.js"></script>
-
-    @RenderSection("scripts", required: false)
 </body>
 </html>

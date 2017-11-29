@@ -39,4 +39,15 @@
             _this.dismiss({ $value: { isCancel: true } });
         }
     }
+
+    angular.module('playbook').component('playbookRowEditor', {
+        controller: ['playBookService', '$log', '$scope', Tuatara.playbookRowEditorController],
+        controllerAs: 'editor',
+        templateUrl: '/app/playbook/row/roweditor.html',
+        bindings: {
+            resolve: '<',
+            close: '&',
+            dismiss: '&'
+        }
+    });
 })();

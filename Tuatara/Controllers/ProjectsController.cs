@@ -4,6 +4,9 @@ using System.Web.Http;
 using Tuatara.Services.Dto;
 using Tuatara.Services.BL;
 using log4net;
+using System.Net.Http;
+using System.Net;
+using System;
 
 namespace Tuatara.Controllers
 {
@@ -25,19 +28,19 @@ namespace Tuatara.Controllers
             return _service.GetAllProjects();
         }
 
-        // Get api/project/12
+        // Get api/projects/12
         public ProjectDto Get(int id, bool withParent = false)
-        {
+        {            
             return _service.Get(id, withParent);
         }
 
-        // Get api/project/?name=foo
+        // Get api/projects?name=foo
         public IEnumerable<ProjectDto> Get(string name)
         {
             return _service.FindByName(name);
         }
 
-        // POST api/values
+        // POST api/projects/12
         public ProjectDto Post([FromBody] ProjectDto value)
         {            
             if (ModelState.IsValid)
@@ -49,11 +52,32 @@ namespace Tuatara.Controllers
         }
 
         // PUT api/values/5
-        public void Put(int id, [FromBody] ProjectDto value)
+        public ProjectDto Put(int id, [FromBody] ProjectDto value)
         {
-            if(ModelState.IsValid && value.ID == id)
+            // deserialization is ok
+            if (ModelState.IsValid)                
             {
-                _service.Update(value);
+                // if value is non empty and not fudged
+                if (value != null && value.ID == id)
+                {
+                    try
+                    {
+                        var result = _service.Update(value);
+                        return result;
+                    }
+                    catch(Exception ex)
+                    {
+                        throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message));
+                    }
+                } 
+                else
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Incorrect or insufficient parameters"));
+                }
+            }
+            else
+            {
+                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState));
             }
         }
 

@@ -25,16 +25,10 @@ namespace Tuatara
             bundles.Add(new Bundle("~/bundles/angular").Include(
                 "~/Scripts/angular.min.js",
                 "~/Scripts/angular-resource.min.js",
-                "~/Scripts/angular-ui-router.min.js",
+                "~/Scripts/angular-route.min.js",
                 "~/Scripts/ui-bootstrap-tpls-2.5.0.min.js",
                 "~/Content/angular-xeditable-0.8.0/js/xeditable.min.js"
                 ));
-
-            bundles.Add(new ScriptBundle("~/bundles/tuatara")
-                .IncludeDirectory("~/Scripts/Factories", "*.js")
-                .IncludeDirectory("~/Scripts/Controllers", "*.js")
-                .Include("~/Scripts/tuatara.js")
-                );
             
         }
     }
