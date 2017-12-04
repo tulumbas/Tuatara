@@ -52,14 +52,6 @@
 
         function getParents(search) {
             return workforceService.query({ name: search }).$promise;  // $promise needed for uib
-            //return workforceService.query({ name: search }, function (data) {
-            //    if(angular.isArray(data) || data === null) _this.parentSearchResult = data;
-            //}, function (error) {
-            //    if (error && error.data) {
-            //        _this.error = error.data.message;
-            //        _this.parentSearchResult = [];
-            //    }
-            //}); // $promise needed for uib
         }
 
         function ok() {

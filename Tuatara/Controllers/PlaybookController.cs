@@ -29,17 +29,5 @@ namespace Tuatara.Controllers
             var playbook = _assignementService.GetPlaybookForWeekShift(weekShift);
             return playbook;
         }
-
-        [HttpPost]
-        public void CreateRow(int weekID, PlaybookRow row)
-        {
-            _assignementService.CreateAssignment(weekID, row, _userID);
-        }
-
-        [HttpGet]
-        public IEnumerable<string> FindByName(string name)
-        {
-            return _projectService.FindByName(name).Select(x => x.Name);
-        }
     }
 }

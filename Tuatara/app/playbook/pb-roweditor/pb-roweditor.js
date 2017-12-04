@@ -1,7 +1,7 @@
 ﻿(function () {
     var Tuatara = (window.Tuatara || (window.Tuatara = {}));
 
-    Tuatara.playbookRowEditorController = function (playbookService, $log, $scope) {
+    Tuatara.pbRowEditorController = function (playbookService, $log, $scope) {
         var _this = this;
         $scope.isNew = true;
         $scope.ok = saveData;
@@ -40,10 +40,10 @@
         }
     }
 
-    angular.module('playbook').component('playbookRowEditor', {
-        controller: ['playBookService', '$log', '$scope', Tuatara.playbookRowEditorController],
+    angular.module('playbook').component('pbRowEditor', {
+        controller: ['playbookService', '$log', '$scope', Tuatara.playbookRowEditorController],
         controllerAs: 'editor',
-        templateUrl: '/app/playbook/row/roweditor.html',
+        templateUrl: '/app/playbook/pb-roweditor/pb-roweditor.html',
         bindings: {
             resolve: '<',
             close: '&',

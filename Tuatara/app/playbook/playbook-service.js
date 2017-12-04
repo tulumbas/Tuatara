@@ -15,20 +15,10 @@
     'use strict';
     var Tuatara = (window.Tuatara || (window.Tuatara = {}));
 
-    Tuatara.playbookService = function (errorParser, $http, $log, $uibModal) {
-        this.getProjects = getProjects;
-        this.getWeekFromCurrent = getWeekFromCurrent;
+    Tuatara.playbookService = function (errorParser, $http, $log) {
         this.getPlaybookForWeek = getPlaybookForWeek;
-        this.openRowEditor = openRowEditor;
-        this.saveChanges = saveChanges;
-
-        function getWeekFromCurrent(weekShift) {
-            var request = $http.get('/api/calendar/getweek?shift=' + weekShift.toString());
-            var pipelined = request.then(function (payload) {
-                return new Tuatara.PlaybookWeek(payload.data);
-            });
-            return pipelined;
-        }
+        //this.openRowEditor = openRowEditor;
+        //this.saveChanges = saveChanges;
 
         function getPlaybookForWeek(weekShift) {
             return $http
@@ -39,35 +29,6 @@
                     $log.error('Error loading playbook week ' + e.getAll());
                 });
             ;
-        }
-
-        function openRowEditor(rowData) {
-            var editor = $uibModal.open({
-                animation: false,
-                component: 'playbookRowEditor',
-                size: 'lg',
-                resolve: { rowData: rowData }
-            });
-
-            editor.result.then(function (status) {
-                $log.debug('row editor status ' + status);
-            }, function () {
-                $log.info('modal-component dismissed at: ' + new Date());
-            });
-        }
-
-        function saveChanges(rowDto) {
-            
-        }
-
-        function getProjects(search) {
-            return $http.get('/api/project/findByName?name=' + search)
-                .then(function(payload){
-                    return payload.data;
-                }, function(e){
-                    $log.error(e);
-                });
-            
         }
     }
 
@@ -84,41 +45,41 @@
     }
 
     Tuatara.PlaybookWeekRow = function (dto) {
-        var _this = this;
+        this.id = this.resourceID = this.projectID = 0;
+        this.resource = this.description = this.project = this.status = this.intraweek = this.priorityName = null;
+        this.duration = 0.0;
         if (dto) {
-            Tuatara.PlaybookWeekRow.prototype.copy(dto, _this);
-        } else {
-            _this.id = _this.resourceID = _this.projectID = 0;
-            _this.resource = _this.description = _this.project = _this.status = _this.intraweek = null;
-            _this.duration = 0.0;
+            for (var prop in this) {
+                this[prop] = dto[prop];
+            }
         }
     }
      
-    Tuatara.PlaybookWeekRow.prototype.copy = function (src, dst) {
-        dst.id = src.id;
-        dst.description = src.description;
-        dst.duration = src.duration;
+    //Tuatara.PlaybookWeekRow.prototype.copy = function (src, dst) {
+    //    dst.id = src.id;
+    //    dst.description = src.description;
+    //    dst.duration = src.duration;
 
-        dst.resourceID = src.resourceID;
-        dst.resourceName = src.resourceName;
+    //    dst.resourceID = src.resourceID;
+    //    dst.resourceName = src.resourceName;
 
-        dst.whatID = src.whatID;
-        dst.whatName = src.whatName;
+    //    dst.whatID = src.whatID;
+    //    dst.whatName = src.whatName;
 
-        dst.priorityID = src.priorityID;
-        dst.priorityName = src.priorityName;
-        dst.prioritySort = src.prioritySort;
+    //    dst.priorityID = src.priorityID;
+    //    dst.priorityName = src.priorityName;
+    //    dst.prioritySort = src.prioritySort;
 
-        dst.statusID = src.statusID;
-        dst.statusName = src.statusName;
-        dst.statusSort = src.statusSort;
+    //    dst.statusID = src.statusID;
+    //    dst.statusName = src.statusName;
+    //    dst.statusSort = src.statusSort;
 
-        dst.intraweek = src.intraweek;
-        dst.intraweekID = src.intraweekID;
-        dst.intraweekName = src.intraweekName;
+    //    dst.intraweek = src.intraweek;
+    //    dst.intraweekID = src.intraweekID;
+    //    dst.intraweekName = src.intraweekName;
 
-        dst.requestorName = src.requestorName;
-    }
+    //    dst.requestorName = src.requestorName;
+    //}
 
     Tuatara.Playbook = function (dto) {
         this.currentWeek = new Tuatara.PlaybookWeek(dto)
@@ -128,5 +89,5 @@
         }
     }
 
-    angular.module('playbook').service('playBookService', ['errorParser', '$http', '$log', '$uibModal', Tuatara.playbookService])
+    angular.module('playbook').service('playbookService', ['errorParser', '$http', '$log', Tuatara.playbookService])
 })();

@@ -18,7 +18,7 @@ describe('workforce-list component', function () {
     const serviceUrl = '/api/workforce', listComponent = 'workforceList';
 
     // objects reused by all tests
-    let $httpBackend, bindings, $uibModal, uibModalResult, $log, userConfirmation;
+    let $httpBackend, bindings, modal, $log, userConfirmation;
 
     // Load the module that contains the component before each test
     beforeEach(module('workforce'));
@@ -39,14 +39,7 @@ describe('workforce-list component', function () {
         // mock up uib modal for now only open method is used, which returns 
         // a modal instance with promise result property 
         // https://angular-ui.github.io/bootstrap/
-        var $q = $injector.get("$q");
-        uibModalResult = $q.defer();
-        $uibModal = {
-            open: function () { }
-        };
-
-        // spy on modal methods
-        spyOn($uibModal, 'open').and.returnValue({ result: uibModalResult.promise });
+        modal = new Tuatara.mocks.uibModal(jasmine, $injector);
 
         // mock the user confirmation service
         userConfirmation = new Tuatara.mocks.userConfirmation(true);        
@@ -55,7 +48,7 @@ describe('workforce-list component', function () {
         bindings = {
             $scope: {},
             userConfirmation: userConfirmation.service,
-            $uibModal: $uibModal,             
+            $uibModal: modal.uib,             
             $log: $log // mock the $log to intercept messages from controller
         }
     }));
@@ -141,9 +134,9 @@ describe('workforce-list component', function () {
             ctrl.openRowEditor(testRecord);
 
             // uib modal open method was not called
-            expect($uibModal.open).toHaveBeenCalled();
+            expect(modal.openSpy).toHaveBeenCalled();
             // argsFor returns argument array for call, toContain - checks array for presence
-            expect($uibModal.open.calls.argsFor(0)).toContain(jasmine.objectContaining({ resolve: { id: testRecord.id } }));
+            expect(modal.getOpenArgs()).toContain(jasmine.objectContaining({ resolve: { id: testRecord.id } }));
         }));
 
         it('3.2. when dialog is resolved, should refresh the view', inject(function ($componentController) {
@@ -157,7 +150,7 @@ describe('workforce-list component', function () {
             var newData = [testData[1], testData[2]];
             $httpBackend.expectGET(serviceUrl).respond(newData);
             // imitate dialog closing with sme idiotic uibModal response
-            uibModalResult.resolve({ status: { $value: { data: testData[0] } } });
+            modal.resolve(testData[0]);
             $httpBackend.flush();
 
             // it should call refresh anyways

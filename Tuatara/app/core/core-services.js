@@ -4,7 +4,7 @@
 
 (function () {
     'use strict';
-    var Tuatara = (window.Tuatara || (window.Tuatara = {}));
+    let Tuatara = (window.Tuatara || (window.Tuatara = {}));
 
     angular.module('tuatara.core', ['ngResource'])
         // projects CRUD REST, just a thin wrapper around resources

@@ -176,7 +176,6 @@ describe('workforce-row controller', function () {
                 // because of typeahead inability to work with reources, 
                 // need to handle promises myself
                 var result = ctrl.getParents('*a');
-                var _test = this;
                 result.then(function (data) {
                     // check results
                     expect(data).toEqual(testProj);

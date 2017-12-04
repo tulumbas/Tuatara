@@ -186,6 +186,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="app\playbook\pb-totals\" />
+    <Folder Include="app\playbook\pb-wizard\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
@@ -260,9 +262,9 @@
     <Content Include="Content\img\spinner.gif" />
     <Content Include="Content\select.css" />
     <Content Include="Content\select.min.css" />
-    <Content Include="app\playbook\root.html" />
-    <Content Include="app\playbook\row\roweditor.html" />
-    <Content Include="app\playbook\row\row.html" />
+    <Content Include="app\playbook\pb-list.html" />
+    <Content Include="app\playbook\pb-roweditor\pb-roweditor.html" />
+    <Content Include="app\playbook\pb-roweditor\pb-row.html" />
     <Content Include="Content\ui-bootstrap-csp.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -298,9 +300,9 @@
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\controllers\home.js" />
-    <Content Include="app\playbook\row\playbook-row.js" />
-    <Content Include="app\playbook\row\playbook-roweditor.js" />
-    <Content Include="app\playbook\playbook.js" />
+    <Content Include="app\playbook\pb-roweditor\pb-row.js" />
+    <Content Include="app\playbook\pb-roweditor\pb-roweditor.js" />
+    <Content Include="app\playbook\pb-list.js" />
     <Content Include="Scripts\controllers\requests\requests.js" />
     <Content Include="Scripts\factories\calendar-service.js" />
     <Content Include="Scripts\factories\enums-factory.js" />
@@ -313,7 +315,7 @@
     <Content Include="app\tuatara.js" />
     <Content Include="Scripts\tests\core\errorParser.service.spec.js" />
     <Content Include="Scripts\tests\mocks\user-confirmation.mock.js" />
-    <Content Include="Scripts\tests\playbook\playbook.component.spec.js" />
+    <Content Include="Scripts\tests\playbook\pb-list.component.spec.js" />
     <Content Include="Scripts\tests\projects\projects-row.spec.js" />
     <Content Include="Scripts\tests\projects\projects-list.spec.js" />
     <Content Include="Scripts\tests\workforce\workforce-list.spec.js" />

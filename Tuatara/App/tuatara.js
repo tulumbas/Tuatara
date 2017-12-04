@@ -14,7 +14,7 @@ angular.module('tuatara', [
                   template: '<projects-list></projects-list>'
               })
               .when('/playbook/:weekShift', {
-                  template: '<playbook></playbook>'
+                  template: '<pb-list></pb-list>'
               })
               .when('/resources', {
                   template: '<workforce-list></workforce-list>'

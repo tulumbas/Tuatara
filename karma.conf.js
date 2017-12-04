@@ -24,6 +24,7 @@ module.exports = function (config) {
         files: [
           'scripts/angular.js',
           'scripts/angular-mocks.js',
+          'scripts/angular-route.js',
           'scripts/angular-resource.js',
           'scripts/angular-ui/ui-bootstrap.min.js',
           'scripts/ui-bootstrap-tpls-2.5.0.min.js',

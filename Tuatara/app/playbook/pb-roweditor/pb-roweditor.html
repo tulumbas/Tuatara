@@ -1,0 +1,57 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">Please edit the assignment (all fields are compulsory):</h3>
+</div>
+<div class="modal-body" id="modal-body">
+    <form ng-form="editForm">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label for="rowedit-project" class="control-label col-sm-2">Project:</label>
+                <div class="col-sm-10">
+                    <input type="text"
+                           ng-model="data.project"
+                           placeholder="Start typing project or client name"
+                           uib-typeahead="project for project in getProjects($viewValue)"
+                           typeahead-editable="false"
+                           typeahead-loading="loadingTypeAhead"
+                           typeahead-no-results="noResultsTypeAhead"
+                           ng-class="{'invalid-input': noResultsTypeAhead, 'loading': loadingTypeAhead}"
+                           class="form-control"
+                           id="rowedit-project">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="rowedit-description" class="control-label col-sm-2">Details:</label>
+                <div class="col-sm-9">
+                    <input type="text"
+                           ng-model="data.description"
+                           placeholder="Add details on what needs to be done"
+                           uib-typeahead="text for text in getDetails($viewValue)"
+                           typeahead-editable="true"
+                           typeahead-loading="loadingDetails"
+                           ng-class="{'loading': loadingDetails}"
+                           class="form-control"
+                           id="rowedit-description" />
+                </div>
+                <div>
+                    <a>Add items...</a>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="rowedit-priority" class="control-label col-sm-2">Prioriy:</label>
+                <div class="btn-group col-sm-10">
+                    <label class="btn prio-3" ng-model="data.priorityName" uib-btn-radio="'Red'">Red</label>
+                    <label class="btn prio-2" ng-model="data.priorityName" uib-btn-radio="'Amber'">Amber</label>
+                    <label class="btn prio-4" ng-model="data.priorityName" uib-btn-radio="'BAU'">BAU</label>
+                    <label class="btn prio-1" ng-model="data.priorityName" uib-btn-radio="'Holiday'">Holiday</label>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="editForm.pristine">OK</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+</div>
