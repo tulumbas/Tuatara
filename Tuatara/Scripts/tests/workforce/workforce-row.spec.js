@@ -1,7 +1,7 @@
 ﻿// tests the row editor controller for workforce
 // 1. Load. inputDisabled is true until load finishes. isLoading true > false
 // 1.1. with correct id - loads data, isNew = false, inputDisabled == false
-// 1.2. with wrong id - populates an error, inputDisabled == false
+// 1.2. with wrong id - populates an error, inputDisabled == true
 // 1.3. with 0 - creates new (empty), isNew = true, inputDisabled == false
 // 2. calling getworkforce returns array of workforce
 // 3. Calling OK for exisitng record
@@ -125,7 +125,7 @@ describe('workforce-row controller', function () {
                 expect(ctrl.parent.name).toBe(testParent.name, 'wrong parentName');
             }));
 
-        it('1.2. with wrong id - populates an error, inputDisabled == false',
+        it('1.2. with wrong id - populates an error, inputDisabled == true',
             inject(function ($injector, $controller) {
                 var ctrl = loadRecordById(100, null, $controller);
 

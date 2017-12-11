@@ -4,30 +4,30 @@
     (function () { let mocks = Tuatara.mocks || (Tuatara.mocks = {}) })();
 
     Tuatara.mocks.uibModal = function (jasmine, $injector) {
-        var _this = this;
-        var $q = $injector.get("$q");
-        var $rootScope = $injector.get("$rootScope");
-        var uibModalResult = $q.defer();
-        this.openSpy = jasmine.createSpy('uibmodal_open').and.returnValue({ result: uibModalResult.promise });
+        let _this = this;
+        let $q = $injector.get("$q");
+        let $rootScope = $injector.get("$rootScope");
+        let uibModalResult = $q.defer();
 
-        this.uib = {
-            open: this.openSpy
-        };
+        // 
+        // definition of mock
+        //
+        this.open = jasmine.createSpy('uibmodal_open').and.returnValue({ result: uibModalResult.promise });
 
-        this.resolve = function (result) {
-            uibModalResult.resolve({ status: { $value: { data: result } } });
-            // make angular resolve the promise
-            $rootScope.$apply();
+        //
+        // helper funcs
+        this.__resolve = function (result) {
+            uibModalResult.resolve({ status: { $value: { data: result } } });            
+            $rootScope.$apply(); // make angular resolve the promise
         }
 
-        this.reject = function () {
-            uibModalResult.reject();
-            // make angular resolve the promise
-            $rootScope.$apply();
+        this.__reject = function () {
+            uibModalResult.reject();            
+            $rootScope.$apply(); // make angular resolve the promise
         }
 
-        this.getOpenArgs = function () {
-            return _this.openSpy.calls.mostRecent().args;
+        this.__getOpenArgs = function () {
+            return _this.open.calls.mostRecent().args;
         }
     }
 })();

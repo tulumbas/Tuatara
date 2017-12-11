@@ -18,7 +18,7 @@ describe('projects-list component', function () {
     const serviceUrl = '/api/projects', listComponent = 'projectsList';
 
     // objects reused by all tests
-    let $httpBackend, bindings, modal, $log, userConfirmation;
+    let $httpBackend, bindings, $log, userConfirmation;
 
     // Load the module that contains the component before each test
     beforeEach(module('projects'));
@@ -39,16 +39,16 @@ describe('projects-list component', function () {
         // mock up uib modal for now only open method is used, which returns 
         // a modal instance with promise result property 
         // https://angular-ui.github.io/bootstrap/
-        modal = new Tuatara.mocks.uibModal(jasmine, $injector);
+        let modal = new Tuatara.mocks.uibModal(jasmine, $injector);
 
         // mock the user confirmation service
-        userConfirmation = new Tuatara.mocks.userConfirmation(true);        
+        userConfirmation = new Tuatara.mocks.userConfirmation(true);
 
         // injectable vars for controller
         bindings = {
             $scope: {},
             userConfirmation: userConfirmation.service,
-            $uibModal: modal.uib,             
+            $uibModal: modal,
             $log: $log // mock the $log to intercept messages from controller
         }
     }));
@@ -118,7 +118,7 @@ describe('projects-list component', function () {
             expect(ctrl.error).toBeNull('initial error state is wrong');
 
             ctrl.deleteRecord(testData[0]);
-            $httpBackend.flush();            
+            $httpBackend.flush();
 
             expect(ctrl.error).toMatch(testError, 'it should display an error if delete fails');
             // it should call refresh anyways
@@ -130,13 +130,13 @@ describe('projects-list component', function () {
     describe('3. Edit', function () {
         it('3.1. openRowEditor is calling uibModal.open with { resolve : { id: id }}', inject(function ($componentController) {
             var testRecord = testData[0];
-            var ctrl = $componentController(listComponent, bindings);            
+            var ctrl = $componentController(listComponent, bindings);
             ctrl.openRowEditor(testRecord);
 
             // uib modal open method was not called
-            expect(modal.openSpy).toHaveBeenCalled();
+            expect(bindings.$uibModal.open).toHaveBeenCalled();
             // argsFor returns argument array for call, toContain - checks array for presence
-            expect(modal.getOpenArgs()).toContain(jasmine.objectContaining({ resolve: { id: testRecord.id } }));
+            expect(bindings.$uibModal.__getOpenArgs()).toContain(jasmine.objectContaining({ resolve: { id: testRecord.id } }));
         }));
 
         it('3.2. when dialog is resolved, should refresh the view', inject(function ($componentController) {
@@ -150,7 +150,7 @@ describe('projects-list component', function () {
             var newData = [testData[1], testData[2]];
             $httpBackend.expectGET(serviceUrl).respond(newData);
             // imitate dialog closing with sme idiotic uibModal response
-            modal.resolve(testData[0]);
+            bindings.$uibModal.__resolve(testData[0]);
             $httpBackend.flush();
 
             // it should call refresh anyways

@@ -16,7 +16,7 @@
 (function () {
     var Tuatara = (window.Tuatara || (window.Tuatara = {}));
 
-    Tuatara.pbListController = function (playbookService, $log, $scope, $routeParams, $uibModal) {
+    Tuatara.pbListController = function (playbookService, userConfirmation, $log, $scope, $routeParams, $uibModal) {
         var _this = this;
         var currentRow = null;
         var weekShift = $routeParams.weekShift ? $routeParams.weekShift : 0;
@@ -35,6 +35,7 @@
         this.refresh = loadData;
         this.onRowsKeyUp = onRowsKeyUp;
         this.currentWeek = null;
+        this.deleteRows = deleteRows;
 
         this.$onInit = function () {
             loadData(); // defined in a MVC View
@@ -116,11 +117,24 @@
         function cssRowClass(rowData) {
             return 'prio-' + rowData.priorityName.toLowerCase() + (_this.isCurrentRow(rowData) ? ' highlighted-row' : '');
         }
+
+        function deleteRows(rowsToDelete) {
+            if (rowsToDelete.length == 1) {
+                userConfirmation(function () {
+                    playbookService.deleteRow(rowsToDelete[0].id)
+                }, "Are you sure you want to delete '" + rowsToDelete[0].description + "'");
+            } else if (rowsToDelete.length > 1) {
+                userConfirmation(function () {
+                    playbookService.deleteRows(rowsToDelete.map(function (r) { return r.id; }));
+                }, 'Are you sure you want to delete ' + rowsToDelete.length + ' rows');
+            }
+            loadData();
+        }
     }
 
     angular.module('playbook')
         .component('pbList', {
-            controller: ['playbookService', '$log', '$scope', '$routeParams', '$uibModal', Tuatara.pbListController],
+            controller: ['playbookService', 'userConfirmation', '$log', '$scope', '$routeParams', '$uibModal', Tuatara.pbListController],
             controllerAs: 'v',
             templateUrl: '/app/playbook/pb-list.html'
         });

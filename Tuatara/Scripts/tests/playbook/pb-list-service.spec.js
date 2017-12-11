@@ -1,10 +1,10 @@
 ﻿// Operations: 
 //
 // 1. Load
-// 1.1. Has loading as true
+// 1.1. Component has loading as true
 // 1.2. Requests from service playbook with weekShift passed in $routeParams. 
 // 1.3. Once populated, loading is false
-// 1.4. Has rows, matching service
+// 1.4. Has rows, matching testData
 // 2. Sorting
 // 2.1. Initially has sortedby = ['intraweekSort', 'owner']
 // 2.2. Initially has sortZA is false
@@ -22,19 +22,29 @@
 // -7. openroweditor
 // -7.1. openRowEditor is calling uibModal.open with { resolve : { row: rowdata }}
 // -7.2. when dialog is resolved, should refresh the view
-// -8. Delete row
-// 8. bulk processing
-// 9. week pick
-// 10. filtering
+// 8. Row deletion - applied to set of selected rows
+// 8.1. DeleteRows with 1 row as argument calls for confirmation with question "Are you sure you want to delete " + description
+// 8.2. Select 3 rows.  deleteRows with null calls for confirmation with quesion "Are you sure you want to delete 3 rows?"
+// 8.3. DeleteRows call pb Service deleteRows with array of row ids
+// 10. Bulk edit of selected rows (Complete/Cancel/Reschedule/Move) ?
+// 11. week pick
+// 12. filtering
 
 describe('pb-list component', function () {
 
     'use strict';
 
-    const listComponent = 'pbList';
-    let testData;
+    const listComponent = 'pbList', serviceBaseURL = '/api/playbook/';
+    let testRawData, testData, bindings, userConfirmation, $httpBackend;
 
-    let bindings, modal;
+    function getC($componentController) {
+        let c = $componentController(listComponent, bindings);
+        $httpBackend.expectGET(serviceBaseURL + 'get?weekShift=' + bindings.$routeParams.weekShift).respond(testRawData);
+        c.$onInit();
+        //bindings.playbookService.__resolve(testData);
+        $httpBackend.flush();
+        return c;
+    }
 
     beforeEach(module('playbook'));
 
@@ -48,10 +58,10 @@ describe('pb-list component', function () {
         // each test for Equals comparator to exclude angular's own stuff
         jasmine.addCustomEqualityTester(angular.equals);
 
-        // restore test data
-        testData = new Tuatara.Playbook({
+        // restore source data
+        testRawData = {
             weekID: 20180101,
-            WeekNo: 1,
+            weekNo: 1,
             rows: [{
                 id: 1,
                 description: "Task 1",
@@ -83,30 +93,25 @@ describe('pb-list component', function () {
                 intraweekSort: 3, intraweekID: 3, intraweekName: "Wed",
                 requestorName: "Sofia"
             }]
-        });
+        };
 
-        // playbook service mockup        
-        let $rootScope = $injector.get('$rootScope'); 
-        let serviceResult = $injector.get("$q").defer();
-        let playbookServiceMock = {
-            getPlaybookForWeek: function (weekShift) { return serviceResult.promise },
-            __resolve: function (result) {
-                serviceResult.resolve(result);
-                $rootScope.$apply(); // needed to push $q promise chain
-            }
-        }
-        spyOn(playbookServiceMock, "getPlaybookForWeek").and.returnValue(serviceResult.promise);
+        //// restore test data
+        testData = new Tuatara.Playbook(testRawData);
 
-        // uibModal
-        modal = new Tuatara.mocks.uibModal(jasmine, $injector);
+
+        // TODO: rewrite mockup
+        userConfirmation = new Tuatara.mocks.userConfirmation(true);
+
+        $httpBackend = $injector.get('$httpBackend');
 
         // injectable vars for controller
         bindings = {
             $scope: {},
             $log: $log, // mock the $log to intercept messages from controller
-            playbookService: playbookServiceMock,
             $routeParams: { weekShift: -1 },
-            $uibModal: modal.uib
+            //playbookService: new Tuatara.mocks.playbookServiceMock(jasmine, $injector),
+            $uibModal: new Tuatara.mocks.uibModal(jasmine, $injector),
+            userConfirmation: userConfirmation.service
         };
     }));
 
@@ -116,22 +121,39 @@ describe('pb-list component', function () {
             console.log('Controller errors: ');
             console.log(angular.mock.dump($log.error.logs));
         }
+
+        $httpBackend.verifyNoOutstandingExpectation();
+        $httpBackend.verifyNoOutstandingRequest();
+
     }));
 
-    describe('1. Load', function () {
+    describe('PB service', function () {
+        it('getPlaybookForWeek calls the backend and returns typed model', inject(function ($injector) {
+            let args = arguments;
+            let service = $injector.get('playbookService');
+            $httpBackend.expectGET(serviceBaseURL + 'get?weekShift=' + bindings.$routeParams.weekShift).respond(testRawData);
+            service.getPlaybookForWeek(bindings.$routeParams.weekShift).then(function (data) {
+                expect(data.currentWeek).toEqual(testData.currentWeek);
+                expect(data.rows).toEqual(data.rows);
+            }, function (error) {
+                fail('error returned from backend');
+            });
+            $httpBackend.flush();
 
+        }));
+    });
+
+    describe('1. Load', function () {
         it('1.1. Has "isLoading" as true. Requests from service playbook with weekShift passed in $routeParams. Once populated, loading is false. Has rows, matching service.',
             inject(function ($componentController) {
                 let c = $componentController(listComponent, bindings);
-                // initially
-                expect(c.isLoading).toBeTruthy('isLoading must be truthy on start');
-
-                // call on init
+                $httpBackend.expectGET(serviceBaseURL + 'get?weekShift=' + bindings.$routeParams.weekShift).respond(testRawData);
                 c.$onInit();
-                expect(bindings.playbookService.getPlaybookForWeek).toHaveBeenCalledWith(bindings.$routeParams.weekShift);
+                //expect(bindings.playbookService.getPlaybookForWeek).toHaveBeenCalledWith(bindings.$routeParams.weekShift);
                 expect(c.isLoading).toBeTruthy('isLoading still should be true');
 
-                bindings.playbookService.__resolve(testData);
+                $httpBackend.flush();
+                //bindings.playbookService.__resolve(testData);
                 expect(c.currentWeek).toBeDefined('current week is undef');
                 expect(c.currentWeek).not.toBeNull('current week is null');
                 expect(c.currentWeek.id).toEqual(testData.currentWeek.id, 'current week is null');
@@ -173,11 +195,9 @@ describe('pb-list component', function () {
     // 3. current row
     // 3.1. sets current row, isCurrentRow should return true for the row
     // 3.2. cssRowClass for current row should be priority + highlighted-row
-    describe('3. current row', function () {
+    describe('3. Current row', function () {
         it('3.1. sets current row, isCurrentRow should return true for the row', inject(function ($componentController) {
-            let c = $componentController(listComponent, bindings);
-            c.$onInit();
-            bindings.playbookService.__resolve(testData);
+            let c = getC($componentController);
 
             // loaded
             expect(c.isCurrentRow(testData.rows[0])).toBeFalsy();
@@ -185,13 +205,12 @@ describe('pb-list component', function () {
             expect(c.isCurrentRow(testData.rows[0])).toBeTruthy();
         }));
         it('3.2. cssRowClass for current row should be priority + highlighted-row', inject(function ($componentController) {
-            let c = $componentController(listComponent, bindings);
-            c.$onInit();
-            bindings.playbookService.__resolve(testData);
-            var row = testData.rows[0];
+            let c = getC($componentController);
+
+            let row = testData.rows[0];
             c.setCurrentRow(row);
             expect(c.cssRowClass(row)).toEqual('prio-' + row.priorityName.toLowerCase() + ' highlighted-row');
-            var row = testData.rows[1];
+            row = testData.rows[1];
             expect(c.cssRowClass(row)).toEqual('prio-' + row.priorityName.toLowerCase());
         }));
     });
@@ -200,23 +219,23 @@ describe('pb-list component', function () {
     describe('4. Refresh should reload the data', function () {
 
         it('reload', inject(function ($componentController) {
-            let c = $componentController(listComponent, bindings);
-            expect(c.isLoading).toBeTruthy('isLoading must be truthy on start');
-            c.$onInit();
-            expect(bindings.playbookService.getPlaybookForWeek).toHaveBeenCalledWith(bindings.$routeParams.weekShift);
+            let c = getC($componentController);
 
-            bindings.playbookService.__resolve(testData);
             expect(c.currentWeek).toBeDefined('current week is undef');
             expect(c.currentWeek).not.toBeNull('current week is null');
             expect(c.currentWeek.id).toEqual(testData.currentWeek.id, 'current week is null');
             expect(c.rows).toEqual(testData.rows, 'controller rows do not match with service');
             expect(c.isLoading).toBeFalsy('once populated, isLoading must be false');
 
+            testRawData.rows.push(testRawData.rows[0]);
+            $httpBackend.expectGET(serviceBaseURL + 'get?weekShift=' + bindings.$routeParams.weekShift).respond(testRawData);
             c.refresh();
-            expect(bindings.playbookService.getPlaybookForWeek).toHaveBeenCalledWith(bindings.$routeParams.weekShift);
+            //expect(bindings.playbookService.getPlaybookForWeek).toHaveBeenCalledWith(bindings.$routeParams.weekShift);
 
-            testData.rows.push(testData[0]);
-            bindings.playbookService.__resolve(testData);
+
+            testData.rows.push(testData.rows[0]);
+            // bindings.playbookService.__resolve(testData);
+            $httpBackend.flush();
             expect(c.currentWeek).toBeDefined('current week is undef');
             expect(c.currentWeek).not.toBeNull('current week is null');
             expect(c.currentWeek.id).toEqual(testData.currentWeek.id, 'current week is null');
@@ -228,23 +247,47 @@ describe('pb-list component', function () {
     describe('6. Create new records', function () {
         it('6.1. Calls createNew and starts pbWizard with week parameter. On the end, refreshes the view',  inject(function ($componentController) {
             // setup component
-            let c = $componentController(listComponent, bindings);
-            c.$onInit();
-            // now service is called for the 1st time
-            expect(bindings.playbookService.getPlaybookForWeek.calls.count()).toEqual(1);
-            bindings.playbookService.__resolve(testData);
+            let c = getC($componentController);
 
+            // now service is called for the 1st time
+            // expect(bindings.playbookService.getPlaybookForWeek.calls.count()).toEqual(1);
             // call createNew
             c.createNew();
             // check the dialog was created with wizard component and week as a parameter
-            expect(modal.openSpy).toHaveBeenCalled();
-            expect(modal.getOpenArgs()).toContain(jasmine.objectContaining({ component: 'pbWizard', resolve: { week: c.currentWeek } }));
+            expect(bindings.$uibModal.open).toHaveBeenCalled();
+            expect(bindings.$uibModal.__getOpenArgs()).toContain(jasmine.objectContaining({ component: 'pbWizard', resolve: { week: c.currentWeek } }));
             // check the list was refreshed after fialog was opened
             // close the dialog
-            modal.resolve(true);
+            $httpBackend.expectGET(serviceBaseURL + 'get?weekShift=' + bindings.$routeParams.weekShift).respond(testRawData);
+            bindings.$uibModal.__resolve(true);
+            $httpBackend.flush();
             // check the service was called (2nd time)
-            expect(bindings.playbookService.getPlaybookForWeek.calls.count()).toEqual(2);
+            //expect(bindings.playbookService.getPlaybookForWeek.calls.count()).toEqual(2);
         }));
+    });
+
+    // 8. Row deletion - applied to set of selected rows
+    // 8.1. DeleteRows with 1 row as argument calls for confirmation with question "Are you sure you want to delete " + description
+    // 8.2. Select 3 rows.  deleteRows with null calls for confirmation with quesion "Are you sure you want to delete 3 rows?"
+    // 8.3. DeleteRows call pb Service deleteRows with array of row ids
+    describe('Row deletion - applied to set of selected rows', function () {
+        it('DeleteRows with 1 row as argument calls for confirmation with question ' +
+            '"Are you sure you want to delete " + description', inject(function ($componentController) {
+
+                let c = getC($componentController);
+                let data1 = testData.rows[0];
+
+                $httpBackend.expectDELETE(serviceBaseURL + data1.id);
+                $httpBackend.expectGET(serviceBaseURL + 'get?weekShift=' + bindings.$routeParams.weekShift).respond(testRawData);
+
+                c.deleteRows([data1]);
+                expect(userConfirmation.__getQuestion()).toEqual("Are you sure you want to delete '" + data1.description + "'");
+
+                $httpBackend.flush();
+                //expect(bindings.playbookService.deleteRows).toHaveBeenCalledWith([data1.id]);
+                
+        }));
+
     });
 
     xdescribe('10. Filtering in controller', function () {
